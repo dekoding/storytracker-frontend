@@ -1,0 +1,19 @@
+{
+    "title": "Test Story",
+    "id": "test",
+    "comments": "Here are some comments",
+    "status": "Unfinished",
+    "wordcount": "100",
+    "genre": "Sci-Fi",
+    "scifi": "0",
+    "fantasy": "0",
+    "surreal": "0",
+    "horror": "1",
+    "literary": "0",
+    "mainstream": "0",
+    "submission": {
+        "status": "Not Ready",
+        "count": "0",
+        "recent": "None"
+    }
+}

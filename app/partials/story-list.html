@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Filter: <input ng-model="query">
+      Sort by:
+      <select ng-model="orderProp">
+        <option value="title">Title</option>
+        <option value="status">Writing Status</option>
+        <option value="genre">Primary Genre</option>
+        <option value="submittable">Submission Status</option>
+      </select>
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <ul class="stories">
+        <li ng-repeat="story in stories | filter:query | orderBy:orderProp">
+          <a href="#/stories/{{story.id}}">{{story.title}}</a>
+          <p>{{story.comments}}</p>
+        </li>
+      </ul>
+      <div ng-controller="StoryAddCtrl">
+        <form ng-submit="newStory()">
+          <input ng-model="newTitle"/>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
