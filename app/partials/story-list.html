@@ -3,7 +3,7 @@
     <div class="col-md-2">
       <!--Sidebar content-->
 
-      Filter: <input ng-model="query">
+      Filter: <input ng-model="query"><br/>
       Sort by:
       <select ng-model="orderProp">
         <option value="title">Title</option>
@@ -14,21 +14,12 @@
 
     </div>
     <div class="col-md-10">
-      <!--Body content-->
-
       <ul class="stories">
         <li ng-repeat="story in stories | filter:query | orderBy:orderProp">
           <a href="#/stories/{{story.id}}">{{story.title}}</a>
           <p>{{story.comments}}</p>
         </li>
       </ul>
-      <div ng-controller="StoryAddCtrl">
-        <form ng-submit="newStory()">
-          <input ng-model="newTitle"/>
-          <button type="submit">Send</button>
-        </form>
-      </div>
-
     </div>
   </div>
 </div>

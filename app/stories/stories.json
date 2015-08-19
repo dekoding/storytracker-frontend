@@ -1,6 +1,22 @@
 [
     {
         "id": "test",  
-        "title": "Test Story"
+        "title": "Test Story",
+        "comments": "Here are some comments"
+    },
+    {
+        "id": "test2",  
+        "title": "Test Story 2",
+        "comments": "Here are some more elaborate comments"
+    },
+    {
+        "id": "test3",  
+        "title": "Return of Test Story 3",
+        "comments": "The sequel!"
+    },
+    {
+        "id": "test4",  
+        "title": "Attack of Test Story 4: The Quickening",
+        "comments": "This time, it's personal. Or business. Or maybe both."
     }
 ]

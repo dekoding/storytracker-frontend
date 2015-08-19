@@ -6,8 +6,10 @@ var storytrackerControllers = angular.module('storytrackerControllers', []);
 
 storytrackerControllers.controller('StoryListCtrl', ['$scope', 'Story',
 	function($scope, Story) {
+		$scope.id = 'id';
 		$scope.stories = Story.query();
 		$scope.orderProp = 'title';
+		$scope.comments = 'comments';
 	}]);
 
 storytrackerControllers.controller('StoryDetailCtrl', ['$scope', '$routeParams', 'Story',
@@ -15,7 +17,7 @@ storytrackerControllers.controller('StoryDetailCtrl', ['$scope', '$routeParams',
 		$scope.story = Story.get({storyId: $routeParams.storyId});
 	}]);
 
-storytrackerControllers.controller('StoryAddCtrl', ['$scope', '$http',
+/*storytrackerControllers.controller('StoryAddCtrl', ['$scope', '$http',
 	function($scope, $http) {
 		$scope.newStory = function() {
 			var data = $.param({
@@ -30,4 +32,4 @@ storytrackerControllers.controller('StoryAddCtrl', ['$scope', '$http',
 			})
 			.error(alert("There was a problem."));
 		}
-	}]);
+	}]);*/

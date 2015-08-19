@@ -1,0 +1,19 @@
+{
+    "title": "Return of Test Story 3",
+    "id": "test3",
+    "comments": "The sequel!",
+    "status": "Finished",
+    "wordcount": "3000",
+    "genre": "Fantasy",
+    "scifi": "0",
+    "fantasy": "0",
+    "surreal": "0",
+    "horror": "0",
+    "literary": "0",
+    "mainstream": "0",
+    "submission": {
+        "status": "Ready",
+        "count": "1",
+        "recent": "Awesome Magazine"
+    }
+}
