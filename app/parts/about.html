@@ -1,0 +1,24 @@
+<div class="jumbotron"><h3 class="text-center">{{message}}</h3></div>
+<p class="lead">{{lead}}</p>
+<div class="panel panel-info">
+	<div class="panel-heading"><h3 class="panel-title">{{heading.stories}}</h3></div>
+	<div class="panel-body">
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="advert in adverts">
+				<h4 class="list-group-item-heading">{{advert.heading}}</h4>
+				<p class="list-group=item-text">{{advert.text}}</p>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="panel panel-info">
+	<div class="panel-heading"><h3 class="panel-title">{{heading.subs}}</h3></div>
+	<div class="panel-body">
+		<li class="list-group-item" ng-repeat="subvert in subverts">
+				<h4 class="list-group-item-heading">{{subvert.heading}}</h4>
+				<p class="list-group=item-text">{{subvert.text}}</p>
+			</li>
+	</div>
+</div>
+<br/>
+<p>Some extra stuff to force scrolling</p><p>Some extra stuff to force scrolling</p><p>Some extra stuff to force scrolling</p><p>Some extra stuff to force scrolling</p>

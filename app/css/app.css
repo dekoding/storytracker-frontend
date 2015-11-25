@@ -1,99 +1,127 @@
-/* app css stylesheet */
+/*#main {
+	position: absolute;
+	top:60px;
+	left:0;
+	right:0;
+	bottom:0;
+	overflow-y:auto;
+}*/
 
-body {
-  padding-top: 20px;
+#main {
+	position: relative;
+}
+
+/* Custom Bootstrap styles */
+.jumbotron {
+	background-color: #d9edf7;
+    border: 1px solid #bce8f1;
+    color: #31708f;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+table.table-fixedheader {
+	width: 100%;   
+}
+/*
+Set table elements to block mode.  (Normally they are inline).
+This allows a responsive table, such as one where columns can be stacked
+if the display is narrow.
+*/
+table.table-fixedheader, table.table-fixedheader>thead, table.table-fixedheader>tbody, table.table-fixedheader>thead>tr, table.table-fixedheader>tbody>tr, table.table-fixedheader>thead>tr>th, table.table-fixedheader>tbody>td {
+	display: block;
+}
+table.table-fixedheader>thead>tr:after, table.table-fixedheader>tbody>tr:after {
+	content:' ';
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
+/*
+When scrolling the table, actually it is only the tbody portion of the
+table that scrolls (not the entire table: we want the thead to remain
+fixed).  We must specify an explicit height for the tbody.  We include
+100px as a default, but it can be overridden elsewhere.
+
+Also, we force the scrollbar to always be displayed so that the usable
+width for the table contents doesn't change (such as becoming narrower
+when a scrollbar is visible and wider when it is not).
+*/
+table.table-fixedheader>tbody {
+	overflow-y: scroll;
+	height: 600px;
+
+}
+/*
+We really don't want to scroll the thead contents, but we want to force
+a scrollbar to be displayed anyway so that the usable width of the thead
+will exactly match the tbody.
+*/
+table.table-fixedheader>thead {
+	overflow-y: scroll;    
+}
+/*
+For browsers that support it (webkit), we set the background color of
+the unneeded scrollbar in the thead to make it invisible.  (Setting
+visiblity: hidden defeats the purpose, as this alters the usable width
+of the thead.)
+*/
+table.table-fixedheader>thead::-webkit-scrollbar {
+	background-color: inherit;
 }
 
 
-.story-images {
-  background-color: white;
-  width: 450px;
-  height: 450px;
-  overflow: hidden;
-  position: relative;
-  float: left;
+table.table-fixedheader>thead>tr>th:after, table.table-fixedheader>tbody>tr>td:after {
+	content:' ';
+	display: table-cell;
+	visibility: hidden;
+	clear: both;
 }
 
-.stories {
-  list-style: none;
+/*
+We want to set <th> and <td> elements to float left.
+We also must explicitly set the width for each column (both for the <th>
+and the <td>).  We set to 20% here a default placeholder, but it can be
+overridden elsewhere.
+*/
+
+table.table-fixedheader>thead tr th, table.table-fixedheader>tbody tr td {
+	float: left;    
+	word-wrap:break-word;     
 }
 
-.thumb {
-  float: left;
-  margin: -0.5em 1em 1.5em 0;
-  padding-bottom: 1em;
-  height: 100px;
-  width: 100px;
+.table-fixedheader > thead > tr > th {
+	cursor: pointer;
 }
 
-.stories li {
-  clear: both;
-  height: 115px;
-  padding-top: 15px;
+.table-fixedheader > thead > tr > th:hover {
+	color: #746;
 }
 
-/** Detail View **/
-img.story {
-  float: left;
-  margin-right: 3em;
-  margin-bottom: 2em;
-  background-color: white;
-  padding: 2em;
-  height: 400px;
-  width: 400px;
-  display: none;
+.table-fixedheader > thead > tr > th:first-child, .table-fixedheader > tbody > tr > td:first-child {
+	/*width: 25%;*/
+	width: 30%;
 }
 
-img.story:first-child {
-  display: block;
+.table-fixedheader > tbody > tr > td:first-child > span, .table-fixedheader > tbody > tr > td:first-child > input {
+	display: inline-block;
+	max-width: 80%;
 }
 
-
-ul.story-thumbs {
-  margin: 0;
-  list-style: none;
+.table-fixedheader > thead > tr > th:nth-child(2), .table-fixedheader > tbody > tr > td:nth-child(2) {
+	/*width: 10%;*/
+	width: 15%;
 }
-
-ul.story-thumbs li {
-  border: 1px solid black;
-  display: inline-block;
-  margin: 1em;
-  background-color: white;
+.table-fixedheader > thead > tr > th:nth-child(3), .table-fixedheader > tbody > tr > td:nth-child(3) {
+	width: 15%;
 }
-
-ul.story-thumbs img {
-  height: 100px;
-  width: 100px;
-  padding: 1em;
+.table-fixedheader > thead > tr > th:nth-child(4), .table-fixedheader > tbody > tr > td:nth-child(4) {
+	width: 15%;
 }
-
-ul.story-thumbs img:hover {
-  cursor: pointer;
-}
-
-
-ul.meta {
-  clear: both;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-ul.meta > li{
-  display: inline-block;
-  width: 200px;
-  vertical-align: top;
-}
-
-ul.meta > li > span{
-  font-weight: bold;
-  font-size: 1.2em;
-}
-
-ul.meta dt {
-  font-weight: bold;
-}
-
-h1 {
-  border-bottom: 1px solid gray;
+/*.table-fixedheader > thead > tr > th:nth-child(5), .table-fixedheader > tbody > tr > td:nth-child(5) {
+	width: 10%;
+	text-align: center;
+}*/
+.table-fixedheader > thead > tr > th:nth-child(6), .table-fixedheader > tbody > tr > td:nth-child(6) {
+	width: 25%;
 }
