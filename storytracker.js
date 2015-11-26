@@ -280,47 +280,9 @@ var storyTracker = {
       function(err, results) {
         if(err)
           throw err;
-        /*var data = [];
-        data['storyId'] = storyId;
-        data['status'] = "deleted";
-        message = JSON.stringify(data);
-        res.setHeader("Content-Length", message.length);
-        res.setHeader("Content-Type", "application/json");
-        res.statusCode = 200;
-        res.write(message);
-        console.log(results);
-        callback();*/
-        //var params = []; // Dummy to get appropriate response from getStories
-        //storyTracker.getStories(db, res, params, callback);
         callback();
       }
     );
-    /*
-    } else if(docType === "submission") {
-      var subId = form.subId;
-      db.collection('stories').update(
-        { "storyId" : storyId },
-        { $pull : { "subId" : subId }},
-        function(err, results) {
-          if(err)
-            throw err;
-          var data = [];
-          data['storyId'] = storyId;
-          data['subId'] = subId;
-          data['status'] = deleted;
-          message = JSON.stringify(data);
-          res.setHeader("Content-Length", message.length);
-          res.setHeader("Content-Type", "application/json");
-          res.statusCode = 200;
-          res.write(message);
-          console.log(results);
-          callback();
-        }
-      );
-    } else {
-      // Something went wrong. Terminate processing immediately.
-      callback();
-    }*/
   },
 
   addStory : function(db, form, res, callback) {
