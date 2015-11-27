@@ -20,6 +20,6 @@ It's still not very usable, but if you'd like to see what's coming, do the follo
 3. Run `node storytracker.js`
 4. In your browser, go to http://127.0.0.1:1337/#/stories (just ignore the boilerplate Bootstrap navbar at the top
 
-Right now, adding, editing, and deleting stories works. Adding, editing, and deleting submissions and readers does not work. It will all hopefully work very soon. Nothing is very pretty yet, either. Don't worry, it'll get there.
+Right now, adding, editing, and deleting stories works, and adding submissions works - albeit it doesn't refresh until you manually reload the page. Editing and deleting submissions and readers does not work. It will all hopefully work very soon. Nothing is very pretty yet, either. Don't worry, it'll get there.
 
 Note that editing of stories is automatic. There's no save button because all typing is committed to the database automatically.
