@@ -118,7 +118,7 @@ Status
 
     <!-- Submission summary -->
     <h3 ng-show="tab == 'subs'"><span class="label label-success"><em>{{story.title}}</em></span></h3>
-    <button ng-show="tab == 'subs'" type="button" class="btn btn-success btn-sm" ng-click="addSub(story.storyId)">
+    <button ng-show="tab == 'subs'" type="button" class="btn btn-success btn-sm" ng-click="newSub(story.storyId)">
         Add Submission
     </button>
     <div ng-show="tab == 'subs'" class="panel panel-success" ng-repeat="submission in story.submissions | orderBy:subSortBy:subSortReverse">
@@ -159,7 +159,6 @@ Status
 </div>
 </div>
 <div class="panel-footer">
-    <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-lg" ng-click="newStory()">
         New story
     </button>

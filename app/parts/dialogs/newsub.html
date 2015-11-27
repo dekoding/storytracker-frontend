@@ -1,0 +1,20 @@
+<!-- New Submission dialog -->
+<div class="modal-header">
+    <h4 class="modal-title">New Submission</h4>
+</div>
+<div class="modal-body">
+    <label for="new-market">Market</label>
+    <input ng-model="sub.market" class="form-control" type="text" id="new-market" />
+    <label for="new-subDate">Submission Date</label>
+    <input ng-model="sub.subDate" class="form-control" type="date" id="new-subDate" />
+    <label for="new-replyDate">Reply Date</label>
+    <input ng-model="sub.replyDate" class="form-control" type="date" id="new-replyDate" />
+    <label for="new-response">Response</label>
+    <select id="new-response" class="form-control" ng-model="sub.response" ng-options="response.name as response.id for response in responseList"></select>
+    <label for="new-comment">Comments</label>
+    <textarea ng-model="sub.comment" class="form-control" id="new-comment"></textarea>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="CANCEL()">Cancel</button>
+    <button type="button" class="btn btn-primary" ng-click="OK(sub)">Save</button>
+</div>

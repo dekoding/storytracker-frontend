@@ -30,17 +30,15 @@ StoryTracker.factory("Story", function($resource, $http) {
 		});
 	}
 
-	/*service.delete = function(story) {
-		console.log("DEBUGGING: Contents of story list:");
-		console.log(service.storyList);
-		$http.post('/api/stories', story)
+	service.addSub = function(sub) {
+		$http.post('/api/stories', sub)
 		.success(function(data) {
-			console.log("Story deleted.");
-		})
-		.error(function(data) {
 			console.log(data);
+			angular.forEach(service.storyList, function(story) {
+				console.log(story.storyId);
+			});
 		});
-	}*/
+	}
 	return service;
 });
 

@@ -229,6 +229,12 @@ var storyTracker = {
             res.end();
           });
           break;
+        case "addSub":
+          storyTracker.addSub(db, form, res, function() {
+            db.close();
+            res.end();
+          });
+          break;
         default:
           // No mode was specified, do nothing.
           res.end();
@@ -325,6 +331,53 @@ var storyTracker = {
           if(err)
             throw err;
           message = JSON.stringify(addString);
+          res.write(message);
+          callback();
+        }
+      );
+    }
+  },
+
+  addSub : function(db, form, res, callback) {
+    if(form.market === undefined || form.market === null || form.market === '') {
+      // No market has been supplied. Do not create an empty record.
+      customServer.error("500", res);
+      return;
+    } else {
+      var storyId = form.storyId;
+      var subId = uuid.v4();
+      var market = form.market;
+      var subDate = form.subDate;
+      var replyDate = form.replyDate;
+      var response = form.response;
+      var comment = form.comment;
+
+      db.collection('stories').update(
+        { "storyId" : storyId },
+        { $push :
+          {
+            "submissions" : {
+              "subId" : subId,
+              "market" : market,
+              "subDate" : subDate,
+              "replyDate" : replyDate,
+              "comment" : comment
+            }
+          }
+        },
+        function(err, results) {
+          if(err)
+            throw err;
+          var message = {
+            'storyId' : storyId,
+            'subId' : subId,
+            'market' : market,
+            'subDate' : subDate,
+            'replyDate' : replyDate,
+            'response' : response,
+            'comment' : comment
+          };
+          message = JSON.stringify(message);
           res.write(message);
           callback();
         }

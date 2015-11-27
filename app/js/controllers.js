@@ -150,14 +150,19 @@ StoryTracker.controller('storiesController', function($scope, $uibModal, $filter
 			}
 		});
 	}
-});
-
-StoryTracker.controller('DelStoryCtrl', function($scope, $uibModalInstance) {
-	$scope.YES = function() {
-		$uibModalInstance.close("delete");
-	}
-	$scope.NO = function() {
-		$uibModalInstance.close("cancel");
+	// New sub dialog
+	$scope.newSub = function(Id) {
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'parts/dialogs/newsub.html',
+			controller: 'NewSubCtrl',
+			size: 'lg',
+			resolve: {
+				storyId: function() {
+					return Id;
+        		}
+        	}
+		});
 	}
 });
 
@@ -174,6 +179,35 @@ StoryTracker.controller('NewStoryCtrl', function($scope, $uibModalInstance, Stor
 			"comments" :story.comments,
 		}
 		Story.add(form);
+		$uibModalInstance.close();
+	}
+	$scope.CANCEL = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
+});
+
+StoryTracker.controller('DelStoryCtrl', function($scope, $uibModalInstance) {
+	$scope.YES = function() {
+		$uibModalInstance.close("delete");
+	}
+	$scope.NO = function() {
+		$uibModalInstance.close("cancel");
+	}
+});
+
+StoryTracker.controller('NewSubCtrl', function($scope, $uibModalInstance, Story, Lists, storyId) {
+	$scope.responseList = Lists.responseList;
+	$scope.OK = function(sub) {
+		var form = {
+			"mode" : "addSub",
+			"storyId" : storyId,
+			"market" : sub.market,
+			"subDate" : sub.subDate,
+			"replyDate" : sub.replyDate,
+			"response" : sub.response,
+			"comment" : sub.comment,
+		}
+		Story.addSub(form);
 		$uibModalInstance.close();
 	}
 	$scope.CANCEL = function () {
