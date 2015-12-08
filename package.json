@@ -1,32 +1,34 @@
 {
   "name": "storytracker",
-  "version": "0.0.1",
-  "description": "StoryTracker: An application for fiction writers who need to track every detail of their stories and submissions.",
+  "version": "1.0.0",
+  "description": "A tool for authors to track stories, readers, and submissions",
   "main": "storytracker.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GoodDamon/storytracker.git"
-  },
-  "keywords": [
-    "writing",
-    "stories",
-    "fiction",
-    "nonfiction",
-    "authors",
-    "author",
-    "tools"
-  ],
-  "author": "Damon Kaswell",
-  "license": "GPL-3.0",
-  "devDependencies": {
-    "mongodb": "*",
-    "node-uuid": "*"
+    "url": "https://github.com/GoodDamon/storytracker/"
   },
   "bugs": {
     "url": "https://github.com/GoodDamon/storytracker/issues"
   },
-  "homepage": "https://github.com/GoodDamon/storytracker#readme"
+  "keywords": [
+    "author",
+    "writing",
+    "writer",
+    "write",
+    "stories",
+    "sci-fi",
+    "fantasy",
+    "specfic"
+  ],
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "mongoose": "^4.2.8",
+    "node-uuid": "*"
+  },
+  "author": "Damon Kaswell",
+  "license": "Apache-2.0"
 }
