@@ -1,51 +1,61 @@
-StoryTracker.factory("Story", function($resource, $http) {
+StoryTracker.factory("Story", function($resource) {
 	var service = {};
 
-	service.stories = $resource("/api/stories:id", {}, {
+	service.stories = $resource("/stories/:storyId", { storyId: '@storyId' }, {
 		"get":{
 			method: 'GET'
 		},
 		"update":{
-			method: 'POST'
+			method: 'PUT'
 		},
 		"add":{
 			method: 'POST'
 		},
 		"delete":{
-			method: 'POST',
-			isArray: true
+			method: 'DELETE'
 		}
 	});
-
-	service.storyList = service.stories.query();
-
-	service.add = function(story) {
-		$http.post('/api/stories', story)
-		.success(function(data) {
-			console.log(data);
-			service.storyList.push(data);
-		})
-		.error(function(data) {
-			console.log(data);
-		});
-	}
-
-	service.addSub = function(sub) {
-		$http.post('/api/stories', sub)
-		.success(function(data) {
-			console.log(data);
-			angular.forEach(service.storyList, function(story) {
-				console.log(story.storyId);
-			});
-		});
-	}
 	return service;
 });
 
-StoryTracker.factory("StoriesList", function($resource) {
+StoryTracker.factory("Submission", function($resource) {
 	var service = {};
-	service.stories = $resource("/api/stories:id");
-    return service;
+
+	service.submissions = $resource("/stories/:storyId/submissions/:subId", { storyId: '@storyId', subId: '@subId' }, {
+		"get":{
+			method: 'GET'
+		},
+		"update":{
+			method: 'PUT'
+		},
+		"add":{
+			method: 'POST'
+		},
+		"delete":{
+			method: 'DELETE'
+		}
+	});
+	return service;
+});
+
+StoryTracker.factory("Reader", function($resource) {
+	var service = {};
+
+	service.readers = $resource("/stories/:storyId/readers/:readerId", { storyId: '@storyId', readerId: '@readerId' }, {
+		"get":{
+			method: 'GET'
+		},
+		"update":{
+			method: 'PUT'
+		},
+		"add":{
+			method: 'POST'
+		},
+		"delete":{
+			method: 'DELETE'
+		}
+	});
+	return service;
 });
 
 StoryTracker.factory('Lists', function() {

@@ -1,8 +1,6 @@
-// create the controller and inject Angular's $scope
 StoryTracker.controller('mainController', function($scope) {
-	// create a message to display in our view
-	$scope.message = 'StoryTracker: The authorship tool for the masses!';
-	$scope.byline = 'Sign up today!';
+	$scope.message = 'StoryTracker:';
+	$scope.byline = 'The authorship tool for tracking your stories.';
 });
 
 StoryTracker.controller('aboutController', function($scope) {
@@ -10,7 +8,8 @@ StoryTracker.controller('aboutController', function($scope) {
 	$scope.lead = "Track your word count, genre, degree of completion, and so much more. With an intuitive and responsive interface, forget about those difficult and unweildy spreadsheets you've been using";
 	$scope.heading = {
 		stories : "Keep track of your writing metadata",
-		subs : "Track submissions, too!"
+		subs : "Track submissions, too!",
+		readers : "Track notes and comments from early readers!"
 	};
 	$scope.adverts = [
 		{
@@ -19,11 +18,11 @@ StoryTracker.controller('aboutController', function($scope) {
 		},
 		{
 			heading : "Genres",
-			text : "Track, sort, organize, and filter stories on primary and secondary genres."
+			text : "Track, sort, organize, and filter stories on genres."
 		},
 		{
 			heading : "Status",
-			text : "Keep track of the writing, editing, and submission status of your stories, and receive alerts when a story that's ready for submission languishes too long."
+			text : "Keep track of the writing, editing, and submission status of your stories."
 		}
 	];
 	$scope.subverts = [
@@ -33,31 +32,144 @@ StoryTracker.controller('aboutController', function($scope) {
 		},
 		{
 			heading : "Avoid mistakes",
-			text : "Automatically exclude markets that stories are already at."
+			text : "Automatically see which stories are already in the mail."
+		}
+	];
+	$scope.readerverts = [
+		{
+			heading : "Early readers",
+			text : "Keep track of names, dates, and comments of your story's early readers.",
 		},
 		{
-			heading : "Run reports",
-			text : "Run reports on response time, sales, rejections, and more."
+			heading : "Bring to critique groups",
+			text : "Keep logs of your critique group's comments about your stories."
 		}
 	];
 });
 
-StoryTracker.controller('docsController', function($scope) {
-	$scope.message = 'Coming soon!';
-});
-
-StoryTracker.controller('helpController', function($scope) {
-	$scope.message = 'Coming soon!';
-});
-
-StoryTracker.controller('loginController', function($scope) {
-	$scope.message = 'Coming soon!';
-});
-
-StoryTracker.controller('storiesController', function($scope, $uibModal, $filter, Story, StoriesList, Lists) {
-	$scope.message = 'Story list';
+// Story controllers
+StoryTracker.controller('storiesController', function($scope, $uibModal, $filter, Story, Lists) {
 	$scope.heading = 'Summary';
 
+	$scope.subStatus = function(submitted, status) {
+		if(submitted) {
+			return "success"; // Returns Bootstrap 'success' class to color the row green.
+		} else if(status === "Finished") {
+			return "danger"; // Returns Bootstrap 'danger' class to inform the user that a story is ready for submission
+		} else {
+			return null;
+		}
+	}
+	$scope.days = '';
+
+	$scope.genreList = Lists.genreList;
+	$scope.statusList = Lists.statusList;
+	$scope.storyLengthList = Lists.storyLengthList;
+
+	$scope.search = [];
+
+	$scope.sortBy = 'title';
+	$scope.sortReverse  = false;
+	$scope.subSortBy = 'subDate';
+	$scope.subSortReverse  = false;
+	$scope.stories = Story.stories.query();
+	$scope.storyCount = $scope.stories.length;
+
+	$scope.updateStory = function(story) {
+		Story.stories.update(story);
+	}
+
+	// New story dialog
+	$scope.newStory = function() {
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'parts/dialogs/newstory.html',
+			controller: 'NewStoryCtrl',
+			size: 'lg'
+		});
+		modalInstance.result.then(function() {
+			$scope.stories = Story.stories.query();
+		});
+	}
+});
+
+StoryTracker.controller('storyController', function($scope, $uibModal, $routeParams, $window, Story, Lists) {
+	$scope.story = Story.stories.get({storyId: $routeParams.storyId});
+	$scope.genreList = Lists.genreList;
+	$scope.statusList = Lists.statusList;
+	$scope.showFilters = false;
+	$scope.updateStory = function(story) {
+		Story.stories.update(story);
+	}
+	$scope.deleteStory = function() {
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'parts/dialogs/deletestory.html',
+			controller: 'DelStoryCtrl',
+			size: 'sm'
+		});
+		modalInstance.result.then(function(choice) {
+			if(choice === "delete") {
+				Story.stories.delete($scope.story);
+				$window.location.href = '/#/stories';
+			}
+		});
+	}
+});
+
+StoryTracker.controller('NewStoryCtrl', function($scope, $uibModalInstance, Story, Lists) {
+	$scope.genreList = Lists.genreList;
+	$scope.statusList = Lists.statusList;
+	$scope.OK = function(story) {
+		Story.stories.add(story);
+		$uibModalInstance.close();
+	}
+	$scope.CANCEL = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
+});
+
+StoryTracker.controller('DelStoryCtrl', function($scope, $uibModalInstance) {
+	$scope.YES = function() {
+		$uibModalInstance.close("delete");
+	}
+	$scope.NO = function() {
+		$uibModalInstance.close("cancel");
+	}
+});
+
+// Submission controllers
+StoryTracker.controller('subsController', function($scope, $uibModal, $routeParams, Submission, Lists) {
+	$scope.responseList = Lists.responseList;
+	$scope.sortBy = 'subDate';
+
+	$scope.updateSub = function(sub) {
+		sub.storyId = $routeParams.storyId;
+		Submission.submissions.update(sub);
+	}
+	// New sub dialog
+	$scope.newSub = function(Id) {
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'parts/dialogs/newsub.html',
+			controller: 'NewSubCtrl',
+			size: 'lg',
+			resolve: {
+				storyId: function() {
+					return Id;
+        		}
+        	}
+		});
+		modalInstance.result.then(function() {
+			$scope.submissions = Submission.submissions.get({storyId: $routeParams.storyId});
+		});
+	}
+	$scope.submissions = Submission.submissions.get({storyId: $routeParams.storyId});
+});
+
+StoryTracker.controller('subController', function($scope, $uibModal, $routeParams, $window, Submission, Lists) {
+	$scope.responseList = Lists.responseList;
+	$scope.submission = Submission.submissions.get({storyId: $routeParams.storyId, subId: $routeParams.subId});
 	$scope.dateFormat = function(date) {
 	    var d = new Date(date),
 	        month = '' + (d.getMonth() + 1),
@@ -75,110 +187,43 @@ StoryTracker.controller('storiesController', function($scope, $uibModal, $filter
     	var date1 = new Date(subDate);
     	var timeDiff = Math.abs(date2.getTime() - date1.getTime());
     	var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    	$scope.days = diffDays;
     	return diffDays;
 	}
 
-	$scope.setTab = function(input) {
-		if(input === "Finished") {
-			return "subs";
-		} else {
-			return "story";
-		}
-	}
 	$scope.days = '';
 
-	$scope.genreList = Lists.genreList;
-	$scope.statusList = Lists.statusList;
-	$scope.responseList = Lists.responseList;
-	$scope.storyLengthList = Lists.storyLengthList;
-
-	// ID of story to expand details on
-	$scope.expand = 'all';
-
-	$scope.search = [];
-
-	$scope.sortBy = 'title';
-	$scope.sortReverse  = false;
-	$scope.subSortBy = 'subDate';
-	$scope.subSortReverse  = false;
-	$scope.focus = 'nothing';
-
-	$scope.stories = Story.storyList;
-
-	$scope.updateStory = function(story, fieldName) {
-		console.log("CHANGE: " + fieldName + " of story with id '" + story.storyId + "' has changed to " + story[fieldName] )
-		var form = {
-			"storyId" : story.storyId,
-			"fieldName" : fieldName,
-			"fieldContent" : story[fieldName],
-			"fieldType" : "story",
-			"mode" : "update"
-		};
-		Story.stories.update(form);
+	$scope.updateSub = function(sub) {
+		Submission.submissions.update(sub);
+		$scope.days = $scope.dateDifference(sub.replyDate, sub.subDate)
 	}
-
-	// New story dialog
-	$scope.newStory = function() {
+	$scope.deleteSub = function(sub) {
 		var modalInstance = $uibModal.open({
 			animation: true,
-			templateUrl: 'parts/dialogs/newstory.html',
-			controller: 'NewStoryCtrl',
-			size: 'lg'
-		});
-	}
-
-	// Delete story dialog
-	$scope.deleteStory = function(storyId) {
-		var modalInstance = $uibModal.open({
-			animation: true,
-			templateUrl: 'parts/dialogs/deletestory.html',
-			controller: 'DelStoryCtrl',
+			templateUrl: 'parts/dialogs/deletesub.html',
+			controller: 'DelSubCtrl',
 			size: 'sm'
 		});
-
 		modalInstance.result.then(function(choice) {
-			$scope.expand = 'all';
-			console.log("Choice was: " + choice);
 			if(choice === "delete") {
-				var form = {
-					"mode" : "deleteStory",
-					"storyId" : storyId
-				};
-				Story.stories.delete(form);
-				$scope.stories = $filter('StoryFilter')($scope.stories, {"storyId" : storyId});
+				Submission.submissions.delete(sub);
+				$window.location.href = '/#/stories/' + sub.storyId + '/submissions/';
 			}
 		});
 	}
-	// New sub dialog
-	$scope.newSub = function(Id) {
-		var modalInstance = $uibModal.open({
-			animation: true,
-			templateUrl: 'parts/dialogs/newsub.html',
-			controller: 'NewSubCtrl',
-			size: 'lg',
-			resolve: {
-				storyId: function() {
-					return Id;
-        		}
-        	}
-		});
-	}
-});
+})
 
-StoryTracker.controller('NewStoryCtrl', function($scope, $uibModalInstance, Story, Lists) {
-	$scope.genreList = Lists.genreList;
-	$scope.statusList = Lists.statusList;
-	$scope.OK = function(story) {
+StoryTracker.controller('NewSubCtrl', function($scope, $uibModalInstance, Submission, Lists, storyId) {
+	$scope.responseList = Lists.responseList;
+	$scope.OK = function(sub) {
 		var form = {
-			"mode" : "addStory",
-			"title" : story.title,
-			"words" : story.words,
-			"genre" : story.genre,
-			"status" : story.status,
-			"comments" :story.comments,
+			"storyId" : storyId,
+			"market" : sub.market,
+			"subDate" : sub.subDate,
+			"replyDate" : sub.replyDate,
+			"response" : sub.response,
+			"comment" : sub.comment,
 		}
-		Story.add(form);
+		Submission.submissions.add(form);
 		$uibModalInstance.close();
 	}
 	$scope.CANCEL = function () {
@@ -186,7 +231,7 @@ StoryTracker.controller('NewStoryCtrl', function($scope, $uibModalInstance, Stor
 	};
 });
 
-StoryTracker.controller('DelStoryCtrl', function($scope, $uibModalInstance) {
+StoryTracker.controller('DelSubCtrl', function($scope, $uibModalInstance) {
 	$scope.YES = function() {
 		$uibModalInstance.close("delete");
 	}
@@ -195,22 +240,77 @@ StoryTracker.controller('DelStoryCtrl', function($scope, $uibModalInstance) {
 	}
 });
 
-StoryTracker.controller('NewSubCtrl', function($scope, $uibModalInstance, Story, Lists, storyId) {
-	$scope.responseList = Lists.responseList;
-	$scope.OK = function(sub) {
+// Reader controllers
+StoryTracker.controller('readersController', function($scope, $uibModal, $routeParams, Reader) {
+	$scope.sortBy = 'readDate';
+
+	$scope.updateReader = function(reader) {
+		reader.storyId = $routeParams.storyId;
+		Reader.readers.update(reader);
+	}
+	// New sub dialog
+	$scope.newReader = function(Id) {
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'parts/dialogs/newreader.html',
+			controller: 'NewReaderCtrl',
+			size: 'lg',
+			resolve: {
+				storyId: function() {
+					return Id;
+        		}
+        	}
+		});
+		modalInstance.result.then(function() {
+			$scope.readers = Reader.readers.get({storyId: $routeParams.storyId});
+		});
+	}
+	$scope.readers = Reader.readers.get({storyId: $routeParams.storyId});
+});
+
+StoryTracker.controller('readerController', function($scope, $uibModal, $routeParams, $window, Reader) {
+	$scope.reader = Reader.readers.get({storyId: $routeParams.storyId, readerId: $routeParams.readerId});
+
+	$scope.updateReader = function(reader) {
+		Reader.readers.update(reader);
+	}
+	$scope.deleteReader = function(reader) {
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'parts/dialogs/deletereader.html',
+			controller: 'DelReaderCtrl',
+			size: 'sm'
+		});
+		modalInstance.result.then(function(choice) {
+			if(choice === "delete") {
+				Reader.readers.delete(reader);
+				$window.location.href = '/#/stories/' + reader.storyId + '/readers/';
+			}
+		});
+	}
+})
+
+StoryTracker.controller('NewReaderCtrl', function($scope, $uibModalInstance, Reader, storyId) {
+	$scope.OK = function(reader) {
 		var form = {
-			"mode" : "addSub",
 			"storyId" : storyId,
-			"market" : sub.market,
-			"subDate" : sub.subDate,
-			"replyDate" : sub.replyDate,
-			"response" : sub.response,
-			"comment" : sub.comment,
+			"name" : reader.name,
+			"readDate" : reader.readDate,
+			"comment" : reader.comment,
 		}
-		Story.addSub(form);
+		Reader.readers.add(form);
 		$uibModalInstance.close();
 	}
 	$scope.CANCEL = function () {
 		$uibModalInstance.dismiss('cancel');
 	};
+});
+
+StoryTracker.controller('DelReaderCtrl', function($scope, $uibModalInstance) {
+	$scope.YES = function() {
+		$uibModalInstance.close("delete");
+	}
+	$scope.NO = function() {
+		$uibModalInstance.close("cancel");
+	}
 });

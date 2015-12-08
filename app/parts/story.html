@@ -1,0 +1,67 @@
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="/#/stories"><i class="fa fa-book"></i> Stories</a></li>
+    <li class="active"><i class="fa fa-pencil-square-o"></i> {{story.title}}</li>
+</ol>
+<!-- <div class="container"> -->
+<div class="panel panel-info">
+    <div class="panel-heading"><h3 class="panel-title">Story details for: <em>{{story.title}}</em></h3></div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="title-{{story.storyId}}">Title</label>
+                    <input ng-model="story.title" ng-change="updateStory(story, 'title')" class="form-control" type="text" id="title-{{story.storyId}}" />
+                </div>
+                <div class="col-md-6">
+                    <label for="words-{{story.storyId}}">Word count</label>
+                    <input ng-model="story.words" ng-change="updateStory(story, 'words')" class="form-control" id="words-{{story.storyId}}" type="number" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="genre-{{story.storyId}}">Genre</label>
+                    <select id="genre-{{story.storyId}}" class="form-control" ng-model="story.genre" ng-change="updateStory(story, 'genre')" ng-options="genre.name as genre.id for genre in genreList"></select>
+                    <label for="status-{{story.storyId}}">Story status</label>
+                    <select id="status-{{story.storyId}}" class="form-control" ng-model="story.status" ng-change="updateStory(story, 'status')" ng-options="status.name as status.id for status in statusList"></select>
+                </div>
+                <div class="col-md-6">
+                    <label for="comments-{{story.storyId}}">Comments</label>
+                    <textarea ng-model="story.comments" ng-change="updateStory(story, 'comments')" class="form-control" id="comments-{{story.storyId}}"></textarea>
+                    <label for="market-{{story.storyId}}" ng-show="story.market != 'none'">Current market: </label><br/><span ng-show="story.market != 'none'">{{story.market}}</span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h4>Statistics</h4>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="subCount-{{story.storyId}}">Submissions: </label>
+                    <span id="subCount-{{story.storyId}}">{{story.subCount}}</span><br/>
+                    <label for="rejected-{{story.storyId}}">Rejections: </label>
+                    <span id="rejected-{{story.storyId}}">{{story.rejected}}</span><br/>
+                    <label for="sold-{{story.storyId}}">Sales: </label>
+                    <span id="sold-{{story.storyId}}">{{story.sold}}</span><br/>
+                    <label for="average-{{story.storyId}}">Average wait time: </label>
+                    <span id="average-{{story.storyId}}">{{story.average}} day(s)</span><br/>
+                </div>
+                <div class="col-md-6">
+                    <label for="readerCount-{{story.storyId}}">Readers: </label>
+                    <span id="readerCount-{{story.storyId}}">{{story.readerCount}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger btn-lg" ng-click="deleteStory()">
+            Delete Story
+        </button>
+        <div class="btn-group pull-right">
+            <a class="btn btn-lg btn-warning" ng-href="/#/stories/{{story.storyId}}/readers">Readers</a>
+            <a class="btn btn-lg btn-success" ng-href="/#/stories/{{story.storyId}}/submissions">Submissions</a>
+        </div>
+    </div>
+</div>
+<!-- </div> -->

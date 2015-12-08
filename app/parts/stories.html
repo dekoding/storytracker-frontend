@@ -1,166 +1,83 @@
-<!-- <div class="jumbotron"><h3 class="text-center">{{message}}</h3></div> -->
+
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+    <li class="active"><i class="fa fa-book"></i> Stories</li>
+</ol>
 <div class="panel panel-info">
-<div class="panel-heading"><h3 class="panel-title">{{heading}}</h3></div>
-<div class="panel-body">
-<div class="table-responsive">
-<table class="table table-striped table-hover table-condensed table-fixedheader">
-<thead ng-show="expand == 'all'">
-<tr>
-<th ng-click="sortBy='title';sortReverse=!sortReverse">
-Title
-<span ng-show="sortBy == 'title' && !sortReverse" class="fa fa-caret-down"></span>
-<span ng-show="sortBy == 'title' && sortReverse" class="fa fa-caret-up"></span>
-</th>
-<th ng-click="sortBy='words';sortReverse=!sortReverse">
-Words
-<span ng-show="sortBy == 'words' && !sortReverse" class="fa fa-caret-down"></span>
-<span ng-show="sortBy == 'words' && sortReverse" class="fa fa-caret-up"></span>
-</th>
-<th ng-click="sortBy='genre';sortReverse=!sortReverse">
-Primary genre
-<span ng-show="sortBy == 'genre' && !sortReverse" class="fa fa-caret-down"></span>
-<span ng-show="sortBy == 'genre' && sortReverse" class="fa fa-caret-up"></span>
-</th>
-<th ng-click="sortBy='status';sortReverse=!sortReverse">
-Status
-<span ng-show="sortBy == 'status' && !sortReverse" class="fa fa-caret-down"></span>
-<span ng-show="sortBy == 'status' && sortReverse" class="fa fa-caret-up"></span>
-<th>Comments</th>
-</tr>
-<tr>
-    <th><input class="form-control" ng-model="search.title" /></th>
-    <th><select class="form-control" ng-model="search.words" ng-options="words.name as words.id for words in storyLengthList"><option value="">No filter</option></select></th>
-    <th><select class="form-control" ng-model="search.genre" ng-options="genre.name as genre.id for genre in genreList"><option value="">No filter</option></select></th>
-    <th><select class="form-control" ng-model="search.status" ng-options="status.name as status.id for status in statusList"><option value="">No filter</option></select></th>
-    <th><input class="form-control" ng-model="search.comments" /></th>
-</tr>
-</thead>
-<tbody>
-    <tr ng-model="stories" ng-repeat="story in stories | orderBy:sortBy:sortReverse | StoryFilter:search" ng-show="expand == 'all' || expand == $index">
-<td>
-    <span class="glyphicon glyphicon-chevron-right" ng-show="$parent.expand == 'all'" ng-click="$parent.expand = $index"></span>
-    <span class="glyphicon glyphicon-chevron-down" ng-show="$parent.expand == $index" ng-click="$parent.expand = 'all'"></span>
-    <input ng-show="$parent.expand == 'all'" ng-model="story.title" ng-change="$parent.updateStory(story, 'title')" class="form-control" type="text" />
-</td>
-<td ng-show="$parent.expand == 'all'"><input ng-model="story.words" ng-change="$parent.updateStory(story, 'words')" class="form-control" type="number" /></td>
-<td ng-show="$parent.expand == 'all'"><select class="form-control" ng-change="$parent.updateStory(story, 'genre')" ng-model="story.genre" ng-options="genre.name as genre.id for genre in genreList"></select></td>
-<td ng-show="$parent.expand == 'all'"><select class="form-control" ng-change="$parent.updateStory(story, 'status')" ng-model="story.status" ng-options="status.name as status.id for status in statusList"></select></td>
-<td ng-show="$parent.expand == 'all'"><input ng-change="$parent.updateStory(story, 'comments')" ng-model="story.comments" class="form-control" type="text" /></td><br/>
-<td style="width: 100%;" ng-show="$parent.expand == $index" ng-init="tab = $parent.setTab(story.status)">
-    <div class="btn-group">
-        <button type="button" class="btn btn-primary" ng-click="tab = 'story'">Story</button>
-        <button type="button" class="btn btn-info" ng-click="tab = 'readers'">Readers</button>
-        <button type="button" class="btn btn-success" ng-click="tab = 'subs'">Submissions</button>
-    </div>
-
-    <!-- Story summary -->
-    <h3 ng-show="tab == 'story'"><span class="label label-primary"><em>{{story.title}}</em></span></h3>
-    <div class="panel panel-primary" ng-show="tab == 'story'">
-        <div class="panel-heading"><h3 class="panel-title">Story details</h3></div>
-        <div class="panel-body">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="title-{{story.storyId}}">Title</label>
-                        <input ng-model="story.title" ng-change="$parent.updateStory(story, 'title')" class="form-control" type="text" id="title-{{story.storyId}}" />
-                    </div>
-                    <div class="col-md-6">
-                        <label for="words-{{story.storyId}}">Word count</label>
-                        <input ng-model="story.words" ng-change="$parent.updateStory(story, 'words')" class="form-control" id="words-{{story.storyId}}" type="number" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="genre-{{story.storyId}}">Primary genre</label>
-                        <select id="genre-{{story.storyId}}" class="form-control" ng-model="story.genre" ng-change="$parent.updateStory(story, 'genre')" ng-options="genre.name as genre.id for genre in genreList"></select>
-                        <label for="status-{{story.storyId}}">Story status</label>
-                        <select id="status-{{story.storyId}}" class="form-control" ng-model="story.status" ng-change="$parent.updateStory(story, 'status')" ng-options="status.name as status.id for status in statusList"></select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="comments-{{story.storyId}}">Comments</label>
-                        <textarea ng-model="story.comments" ng-change="$parent.updateStory(story, 'comments')" class="form-control" id="comments-{{story.storyId}}"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel-footer">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger btn-lg" ng-click="deleteStory(story.storyId)">
-                Delete Story
-            </button>
+    <div class="panel-heading"><h3 class="panel-title">{{heading}}</h3></div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-condensed table-fixedheader">
+                <thead>
+                    <tr>
+                        <th ng-click="sortBy='title';sortReverse=!sortReverse">
+                            Title
+                            <span ng-show="sortBy == 'title' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortBy == 'title' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sortBy='words';sortReverse=!sortReverse">
+                            Words
+                            <span ng-show="sortBy == 'words' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortBy == 'words' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sortBy='genre';sortReverse=!sortReverse">
+                            Primary genre
+                            <span ng-show="sortBy == 'genre' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortBy == 'genre' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sortBy='status';sortReverse=!sortReverse">
+                            Status
+                            <span ng-show="sortBy == 'status' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortBy == 'status' && sortReverse" class="fa fa-caret-up"></span>
+                        <th>Comments</th>
+                    </tr>
+                    <tr>
+                        <td class="bg-info">
+                            <span class="glyphicon glyphicon-search" ng-show="showFilters != true" ng-click="showFilters = true"></span>
+                            <span class="glyphicon glyphicon-remove" ng-show="showFilters == true" ng-click="showFilters = false;search = []"></span>
+                            <span ng-show="showFilters != true" ng-click="showFilters = true" class="small search">Search</span>
+                            <span ng-show="showFilters == true" ng-click="showFilters = false;search = []" class="small search">Search</span>
+                        </td>
+                    </tr>
+                    <tr ng-show="showFilters == true" class="bg-info">
+                        <th><input class="form-control" ng-model="search.title" /></th>
+                        <th><select class="form-control" ng-model="search.words" ng-options="words.name as words.id for words in storyLengthList"><option value="">---</option></select></th>
+                        <th><select class="form-control" ng-model="search.genre" ng-options="genre.name as genre.id for genre in genreList"><option value="">---</option></select></th>
+                        <th><select class="form-control" ng-model="search.status" ng-options="status.name as status.id for status in statusList"><option value="">---</option></select></th>
+                        <th><input class="form-control" ng-model="search.comments" /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-model="stories" ng-repeat="story in stories | orderBy:sortBy:sortReverse | StoryFilter:search" ng-class="subStatus(story.submitted, story.status)">
+                        <td><p class="form-control-static"><a ng-href="/#/stories/{{story.storyId}}">{{story.title}}</a></p></td>
+                        <td>
+                            <input ng-model="story.words" ng-change="$parent.updateStory(story)" class="form-control" type="number" />
+                        </td>
+                        <td>
+                            <select class="form-control" ng-change="$parent.updateStory(story)" ng-model="story.genre" ng-options="genre.name as genre.id for genre in genreList"></select>
+                        </td>
+                        <td>
+                            <select class="form-control" ng-change="$parent.updateStory(story)" ng-model="story.status" ng-options="status.name as status.id for status in statusList"></select>
+                        </td>
+                        <td>
+                            <input ng-change="$parent.updateStory(story)" ng-model="story.comments" class="form-control" type="text" />
+                        </td>
+                    </tr>
+                    <tr ng-show="stories.length == 0"><td><p class="bg-info">No stories in this library yet.</p></td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
-
-    <!-- Reader summary -->
-    <h3 ng-show="tab == 'readers'"><span class="label label-info"><em>{{story.title}}</em></span></h3>
-    <button ng-show="tab == 'readers'" type="button" class="btn btn-info btn-sm" ng-click="addReader(story.storyId)">
-        Add Reader
-    </button>
-    <div ng-show="tab == 'readers'" class="panel panel-info" ng-repeat="reader in story.readers">
-        <div class="panel-heading"><h3 ng-model="reader.name" class="panel-title">Read by {{reader.name}}</h3></div>
-        <div class="panel-body">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="name-{{reader.readerId}}">Reader</label>
-                        <input ng-model="reader.name" class="form-control" type="text" id="name-{{reader.readerId}}" />
-                        <label for="readDate-{{reader.readerId}}">Read date</label>
-                        <input ng-model="reader.readDate" class="form-control" type="date" id="readDate-{{reader.readerId}}"/>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="comments-{{reader.readerId}}">Comments</label>
-                        <textarea ng-model="reader.comments" class="form-control" id="comments-{{reader.readerId}}"></textarea>
-                    </div>
-                </div>
-            </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-primary btn-lg" ng-click="newStory()">
+            New story
+        </button>
+        <div class="pull-right">
+            <p class="small">
+                <span class="label label-success">Green</span> - Currently at a market<br/>
+                <span class="label label-danger">Red</span> - Needs to be submitted<br/>
+                <span class="label label-default">Gray</span> - Not ready for submissions
+            </p>
         </div>
     </div>
-
-    <!-- Submission summary -->
-    <h3 ng-show="tab == 'subs'"><span class="label label-success"><em>{{story.title}}</em></span></h3>
-    <button ng-show="tab == 'subs'" type="button" class="btn btn-success btn-sm" ng-click="newSub(story.storyId)">
-        Add Submission
-    </button>
-    <div ng-show="tab == 'subs'" class="panel panel-success" ng-repeat="submission in story.submissions | orderBy:subSortBy:subSortReverse">
-        <div class="panel-heading"><h3 ng-model="submission.market" class="panel-title">Submission to {{submission.market}}</h3></div>
-        <div class="panel-body">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="market-{{submission.subId}}">Market</label>
-                        <input ng-model="submission.market" class="form-control" type="text" id="market-{{submission.subId}}" />
-                    </div>
-                    <div class="col-md-6">
-                        <label for="response-{{submission.subId}}">Response</label>
-                        <select ng-model="submission.response" class="form-control" ng-options="response.name as response.id for response in responseList" id="response-{{submission.subId}}"></select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="subDate-{{submission.subId}}">Submission Date</label>
-                        <input ng-model="submission.subDate" class="form-control" type="date" id="subDate-{{submission.subId}}"/>
-                        <label for="replyDate-{{submission.subId}}">Reply Date</label>
-                        <input ng-model="submission.replyDate" class="form-control" type="date" id="replyDate-{{submission.subId}}"/>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="comment-{{submission.subId}}">Comment</label>
-                        <textarea ng-model="submission.comment" class="form-control" id="comment-{{submission.subId}}"></textarea>
-                        <br/><label>Turnaround time</label>
-                        <span ng-model="submission.days">{{dateDifference(submission.replyDate, submission.subDate)}}</span> days
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="panel-footer">
-    <button type="button" class="btn btn-primary btn-lg" ng-click="newStory()">
-        New story
-    </button>
-</div>
 </div>

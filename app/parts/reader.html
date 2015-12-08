@@ -1,0 +1,38 @@
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="/#/stories"><i class="fa fa-book"></i> Stories</a></li>
+    <li><a href="/#/stories/{{reader.storyId}}"><i class="fa fa-pencil-square-o"></i> {{reader.title}}</a></li>
+    <li><a href="/#/stories/{{reader.storyId}}/readers"><i class="fa fa-table"></i> Readers</a></li>
+    <li class="active">{{reader.name}}</li>
+</ol>
+<div class="container">
+<div class="panel panel-info">
+    <div class="panel-heading"><h3 class="panel-title"><em>{{reader.title}}</em> read by {{reader.name}}</h3></div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name-{{reader.storyId}}">Name</label>
+                    <input ng-model="reader.name" ng-change="updateReader(reader)" class="form-control" type="text" id="name-{{reader.storyId}}" />
+                </div>
+                <div class="col-md-6">
+                    <label for="comment-{{reader.storyId}}">Comments</label>
+                    <textarea ng-model="reader.comment" ng-change="updateReader(reader)" class="form-control" id="comment-{{reader.storyId}}"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="readDate-{{reader.storyId}}">Read Date</label>
+                    <input ng-model="reader.readDate" ng-change="updateReader(reader)" class="form-control" id="readDate-{{reader.storyId}}" type="date" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger btn-lg" ng-click="deleteReader(reader)">
+            Delete Reader
+        </button>
+    </div>
+</div>
+</div>

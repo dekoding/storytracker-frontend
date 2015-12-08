@@ -31,10 +31,9 @@ StoryTracker.config(function($routeProvider) {
 	$routeProvider
 
 	// Home page
-	.when('/', {
-		templateUrl : 'parts/home.html',
-		controller  : 'mainController'
-	})
+	/*.when('/', {
+		redirectTo: '/stories'
+	})*/
 
 	// About page
 	.when('/about', {
@@ -43,7 +42,7 @@ StoryTracker.config(function($routeProvider) {
 	})
 
 	// Documentation page
-	.when('/docs', {
+	/*.when('/docs', {
 		templateUrl : 'parts/docs.html',
 		controller  : 'docsController'
 	})
@@ -58,19 +57,48 @@ StoryTracker.config(function($routeProvider) {
 	.when('/login', {
 		templateUrl : 'parts/login.html',
 		controller  : 'loginController'
-	})
+	})*/
 
-	// Login page
+	// Stories page
 	.when('/stories', {
 		templateUrl : 'parts/stories.html',
 		controller  : 'storiesController'
 	})
 
+	// Story page
+	.when('/stories/:storyId', {
+		templateUrl : 'parts/story.html',
+		controller  : 'storyController'
+	})
+
+	// Submissions page
+	.when('/stories/:storyId/submissions', {
+		templateUrl : 'parts/subs.html',
+		controller  : 'subsController'
+	})
+
+	// Submission details
+	.when('/stories/:storyId/submissions/:subId', {
+		templateUrl : 'parts/sub.html',
+		controller  : 'subController'
+	})
+
+	// Readers page
+	.when('/stories/:storyId/readers', {
+		templateUrl : 'parts/readers.html',
+		controller  : 'readersController'
+	})
+
+	// Reader details
+	.when('/stories/:storyId/readers/:readerId', {
+		templateUrl : 'parts/reader.html',
+		controller  : 'readerController'
+	})
+
 	// Default to Home
 	.otherwise({
-		redirectTo: '/',
-		controller: 'mainController'
-	});;
+		redirectTo: '/stories'
+	});
 });
 
 StoryTracker.config(["$httpProvider", function ($httpProvider) {

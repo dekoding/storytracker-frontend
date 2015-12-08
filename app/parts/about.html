@@ -11,7 +11,7 @@
 		</ul>
 	</div>
 </div>
-<div class="panel panel-info">
+<div class="panel panel-success">
 	<div class="panel-heading"><h3 class="panel-title">{{heading.subs}}</h3></div>
 	<div class="panel-body">
 		<li class="list-group-item" ng-repeat="subvert in subverts">
@@ -20,5 +20,12 @@
 			</li>
 	</div>
 </div>
-<br/>
-<p>Some extra stuff to force scrolling</p><p>Some extra stuff to force scrolling</p><p>Some extra stuff to force scrolling</p><p>Some extra stuff to force scrolling</p>
+<div class="panel panel-warning">
+	<div class="panel-heading"><h3 class="panel-title">{{heading.readers}}</h3></div>
+	<div class="panel-body">
+		<li class="list-group-item" ng-repeat="readervert in readerverts">
+				<h4 class="list-group-item-heading">{{readervert.heading}}</h4>
+				<p class="list-group=item-text">{{readervert.text}}</p>
+			</li>
+	</div>
+</div>

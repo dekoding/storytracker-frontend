@@ -1,0 +1,53 @@
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="/#/stories"><i class="fa fa-book"></i> Stories</a></li>
+    <li><a href="/#/stories/{{submission.storyId}}"><i class="fa fa-pencil-square-o"></i> {{submission.title}}</a></li>
+    <li><a href="/#/stories/{{submission.storyId}}/submissions"><i class="fa fa-table"></i> Submissions</a></li>
+    <li class="active">{{submission.market}}</li>
+</ol>
+<div class="container">
+<div class="panel panel-success">
+    <div class="panel-heading"><h3 class="panel-title">Submission to {{submission.market}}</h3></div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="market-{{submission.storyId}}">Market</label>
+                    <input ng-model="submission.market" ng-change="updateSub(submission)" class="form-control" type="text" id="market-{{submission.storyId}}" />
+                </div>
+                <div class="col-md-6">
+                    <label for="response-{{submission.storyId}}">Response</label>
+                    <select ng-model="submission.response" ng-change="updateSub(submission)" class="form-control" ng-options="response.name as response.id for response in responseList" id="response-{{submission.storyId}}"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="subDate-{{submission.storyId}}">Submission Date</label>
+                    <input ng-model="submission.subDate" ng-change="updateSub(submission)" class="form-control" id="subDate-{{submission.storyId}}" type="date" />
+                </div>
+                <div class="col-md-6">
+                    <label for="comment-{{submission.storyId}}">Comments</label>
+                    <textarea ng-model="submission.comment" ng-change="updateSub(submission)" class="form-control" id="comment-{{submission.storyId}}"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="replyDate-{{submission.storyId}}">Reply Date</label>
+                    <input ng-model="submission.replyDate" ng-change="updateSub(submission)" class="form-control" id="replyDate-{{submission.storyId}}" type="date" />
+                </div>
+                <div class="col-md-6">
+                    <br/>
+                    <label>Turnaround time:</label>
+                    <span ng-model="submission.days">{{dateDifference(submission.replyDate, submission.subDate)}}</span> days
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger btn-lg" ng-click="deleteSub(submission)">
+            Delete Submission
+        </button>
+    </div>
+</div>
+</div>
