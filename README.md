@@ -3,23 +3,39 @@
 StoryTracker is a project to bring a fully functional web application for tracking story data to writers. It's written using the following components:
 
 * **MongoDB** - A popular document database format for the modern web.
-* **Node.js** - A modern tool for running JavaScript on a console, including the capacity to write web servers.
-* **CustomServer** - A web server I wrote in Node.js, available in pure form here: https://github.com/GoodDamon/customserver
+* **Node.js** - A modern tool for running JavaScript without a browser.
+* **Express** - A framework for serving web content, written for Node.js.
 * **Angular.js** - A JavaScript framework for MVC applications, developed by Google.
 * **Bootstrap** - A CSS and JavaScript front-end to make things pretty, developed by Twitter.
 
-This is NOT READY FOR USE. Its features are extremely lacking right now. If you are interested in helping develop it, feel free to fork it and submit your edits.
+This is an ALPHA application. Its features are extremely lacking right now, and there are probably (definitely) bugs. If you are interested in helping develop it, feel free to fork it and submit your edits.
 
-**UPDATE 11/23/2015**
-This project is starting to take shape. I've switched to using Bootstrap for a lot of the UI components, while Angular handles the routing logic.
+## Features
+* View, add, edit, and delete story metadata including genre, wordcount, writing status, and comments.
+* Log story readers and market submissions.
+* All edits are committed automatically. No need to worry about whether you've hit a "Save" button recently.
+* See at a glance which stories are currently at markets.
+* See detailed submission and reader statistics for your stories, such as number of rejections.
 
-It's still not very usable, but if you'd like to see what's coming, do the following:
+## Installation
 
-1. Install MongoDB and create a database called "storytracker" with a collection called "stories"
-2. Configure access to MongoDB in the node mongo-db configuration file.
-3. Run `node storytracker.js`
-4. In your browser, go to http://127.0.0.1:1337/#/stories (just ignore the boilerplate Bootstrap navbar at the top
+### Prerequisites
+1. Install npm.
+2. Install Node.js.
+3. Install MongoDB.
+4. Install git to clone this repository. (Alternately, download the repository manually, but git is recommended).
 
-Right now, adding, editing, and deleting stories works, and adding submissions works - albeit it doesn't refresh until you manually reload the page. Editing and deleting submissions and readers does not work. It will all hopefully work very soon. Nothing is very pretty yet, either. Don't worry, it'll get there.
+### Setup
+1. In the storytracker directory, install the dependencies using `npm install`.
+2. Run `node storytracker.js`.
+3. In your browser, go to http://127.0.0.1:1337/#/stories
 
-Note that editing of stories is automatic. There's no save button because all typing is committed to the database automatically.
+When you add your first story, StoryTracker will create a database called "storytracker" with a collection called "stories" automatically. The database name can be customized by editing the file `models/mongo.js` if desired. For now, the collection name is not as easy to modify, since it is derived from the application URL.
+
+## Known bugs
+* Node.js console logging is incomplete, and will remain so until I have the time to delve into `console.log()` options more deeply.
+* Date-based searching for submissions and readers is a work-in-progress and doesn't behave as expected.
+* If no reply date is specified for a submission, the statistics for that submission show a wait time of 16654 days. This will be corrected shortly
+
+## HELP!
+StoryTracker needs you. I'm a one-man show, and not a graphic designer. I can program what needs programming, but if you want it to look pretty, that's something I'm going to need help with. If you're a CSS master or graphic design wiz, and want to help, feel free to submit upgrades.
