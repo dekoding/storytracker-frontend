@@ -51,10 +51,10 @@ StoryTracker.controller('aboutController', function($scope) {
 StoryTracker.controller('storiesController', function($scope, $uibModal, $filter, Story, Lists) {
 	$scope.heading = 'Summary';
 
-	$scope.subStatus = function(submitted, status) {
+	$scope.subStatus = function(submitted, sold, status) {
 		if(submitted) {
 			return "success"; // Returns Bootstrap 'success' class to color the row green.
-		} else if(status === "Finished") {
+		} else if(status === "Finished" && !sold) {
 			return "danger"; // Returns Bootstrap 'danger' class to inform the user that a story is ready for submission
 		} else {
 			return null;
@@ -89,6 +89,21 @@ StoryTracker.controller('storiesController', function($scope, $uibModal, $filter
 		});
 		modalInstance.result.then(function() {
 			$scope.stories = Story.stories.query();
+		});
+	}
+
+	// Help dialog
+	$scope.help = function() {
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'parts/dialogs/help.html',
+			controller: 'HelpCtrl',
+			size: 'lg',
+			resolve: {
+				Screen: function() {
+					return "stories";
+        		}
+        	}
 		});
 	}
 });
@@ -148,7 +163,7 @@ StoryTracker.controller('subsController', function($scope, $uibModal, $routePara
 		Submission.submissions.update(sub);
 	}
 	// New sub dialog
-	$scope.newSub = function(Id) {
+	$scope.newSub = function(Id, title) {
 		var modalInstance = $uibModal.open({
 			animation: true,
 			templateUrl: 'parts/dialogs/newsub.html',
@@ -157,6 +172,9 @@ StoryTracker.controller('subsController', function($scope, $uibModal, $routePara
 			resolve: {
 				storyId: function() {
 					return Id;
+        		},
+        		storyTitle: function() {
+        			return title;
         		}
         	}
 		});
@@ -165,6 +183,21 @@ StoryTracker.controller('subsController', function($scope, $uibModal, $routePara
 		});
 	}
 	$scope.submissions = Submission.submissions.get({storyId: $routeParams.storyId});
+
+	// Help dialog
+	$scope.help = function() {
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'parts/dialogs/help.html',
+			controller: 'HelpCtrl',
+			size: 'lg',
+			resolve: {
+				Screen: function() {
+					return "submissions";
+        		}
+        	}
+		});
+	}
 });
 
 StoryTracker.controller('subController', function($scope, $uibModal, $routeParams, $window, Submission, Lists) {
@@ -212,7 +245,8 @@ StoryTracker.controller('subController', function($scope, $uibModal, $routeParam
 	}
 })
 
-StoryTracker.controller('NewSubCtrl', function($scope, $uibModalInstance, Submission, Lists, storyId) {
+StoryTracker.controller('NewSubCtrl', function($scope, $uibModalInstance, Submission, Lists, storyId, storyTitle) {
+	$scope.title = storyTitle;
 	$scope.responseList = Lists.responseList;
 	$scope.OK = function(sub) {
 		var form = {
@@ -249,7 +283,7 @@ StoryTracker.controller('readersController', function($scope, $uibModal, $routeP
 		Reader.readers.update(reader);
 	}
 	// New sub dialog
-	$scope.newReader = function(Id) {
+	$scope.newReader = function(Id, title) {
 		var modalInstance = $uibModal.open({
 			animation: true,
 			templateUrl: 'parts/dialogs/newreader.html',
@@ -258,6 +292,9 @@ StoryTracker.controller('readersController', function($scope, $uibModal, $routeP
 			resolve: {
 				storyId: function() {
 					return Id;
+        		},
+        		storyTitle: function() {
+        			return title;
         		}
         	}
 		});
@@ -266,6 +303,21 @@ StoryTracker.controller('readersController', function($scope, $uibModal, $routeP
 		});
 	}
 	$scope.readers = Reader.readers.get({storyId: $routeParams.storyId});
+
+	// Help dialog
+	$scope.help = function() {
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'parts/dialogs/help.html',
+			controller: 'HelpCtrl',
+			size: 'lg',
+			resolve: {
+				Screen: function() {
+					return "readers";
+        		}
+        	}
+		});
+	}
 });
 
 StoryTracker.controller('readerController', function($scope, $uibModal, $routeParams, $window, Reader) {
@@ -290,7 +342,8 @@ StoryTracker.controller('readerController', function($scope, $uibModal, $routePa
 	}
 })
 
-StoryTracker.controller('NewReaderCtrl', function($scope, $uibModalInstance, Reader, storyId) {
+StoryTracker.controller('NewReaderCtrl', function($scope, $uibModalInstance, Reader, storyId, storyTitle) {
+	$scope.title = storyTitle;
 	$scope.OK = function(reader) {
 		var form = {
 			"storyId" : storyId,
@@ -313,4 +366,11 @@ StoryTracker.controller('DelReaderCtrl', function($scope, $uibModalInstance) {
 	$scope.NO = function() {
 		$uibModalInstance.close("cancel");
 	}
+});
+
+StoryTracker.controller('HelpCtrl', function($scope, $uibModalInstance, Screen) {
+	$scope.Screen = Screen;
+	$scope.OK = function () {
+		$uibModalInstance.dismiss();
+	};
 });
