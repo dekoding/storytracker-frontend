@@ -65,10 +65,14 @@ router.route("/stories")
 				var subCount = story.submissions.length;
 				var readerCount = story.readers.length;
 				var submitted = false;
+                var sold = false;
 				story.submissions.forEach(function(submission) {
 					if(submission.response === "Waiting") {
 						submitted = true;
 					}
+                    if(submission.response === "Sold") {
+                        sold = true;
+                    }
 				});
 				response.push({
 					"storyId" : story.storyId,
@@ -79,7 +83,8 @@ router.route("/stories")
 					"comments" : story.comments,
 					"subCount" : subCount,
 					"readerCount" : readerCount,
-					"submitted" : submitted
+					"submitted" : submitted,
+                    "sold" : sold
 				});
 			});
 		}
