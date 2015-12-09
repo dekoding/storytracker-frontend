@@ -30,34 +30,11 @@ var StoryTracker = angular.module('StoryTracker', ['ngRoute', 'ngResource', 'ui.
 StoryTracker.config(function($routeProvider) {
 	$routeProvider
 
-	// Home page
-	/*.when('/', {
-		redirectTo: '/stories'
-	})*/
-
 	// About page
 	.when('/about', {
 		templateUrl : 'parts/about.html',
 		controller  : 'aboutController'
 	})
-
-	// Documentation page
-	/*.when('/docs', {
-		templateUrl : 'parts/docs.html',
-		controller  : 'docsController'
-	})
-
-	// Help page
-	.when('/help', {
-		templateUrl : 'parts/help.html',
-		controller  : 'helpController'
-	})
-
-	// Login page
-	.when('/login', {
-		templateUrl : 'parts/login.html',
-		controller  : 'loginController'
-	})*/
 
 	// Stories page
 	.when('/stories', {
