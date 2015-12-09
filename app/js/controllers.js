@@ -56,6 +56,8 @@ StoryTracker.controller('storiesController', function($scope, $uibModal, $filter
 			return "success"; // Returns Bootstrap 'success' class to color the row green.
 		} else if(status === "Finished" && !sold) {
 			return "danger"; // Returns Bootstrap 'danger' class to inform the user that a story is ready for submission
+		} else if(status === "Finished" && sold) {
+			return "info"; // Returns Bootstrap 'info' class to inform user that a story is sold and not waiting
 		} else {
 			return null;
 		}
