@@ -1,0 +1,39 @@
+<!-- Help dialog -->
+<div class="modal-header">
+    <h4 class="modal-title">Instructions for {{Screen}}</h4>
+</div>
+<div class="modal-body">
+    <div ng-show="Screen == 'stories'">
+        <p>This is the <strong>stories</strong> screen, which displays a list of the stories in your library.</p>
+        <p>To <strong>add</strong> a story:</p>
+        <ol>
+            <li>Click the <button type="button" class="btn btn-primary btn-sm" disabled="disabled">New story</button> button.</li>
+            <li>Fill out the new story form with story information.</li>
+            <li>Press the <button type="button" class="btn btn-primary btn-sm" disabled="disabled">Save</button> button.</li>
+        </ol>
+        <p>To <strong>view or edit</strong> a story, click on the story's title.</p>
+    </div>
+    <div ng-show="Screen == 'submissions'">
+        <p>This is the <strong>submissions</strong> screen, which displays a list of the submissions for the open story.</p>
+        <p>To <strong>add</strong> a submission:</p>
+        <ol>
+            <li>Click the <button type="button" class="btn btn-success btn-sm" disabled="disabled">New submission</button> button.</li>
+            <li>Fill out the new submission form with submission information.</li>
+            <li>Press the <button type="button" class="btn btn-primary btn-sm" disabled="disabled">Save</button> button.</li>
+        </ol>
+        <p>To <strong>view or edit</strong> a submission, click on the name of the market the story was submitted to.</p>
+    </div>
+    <div ng-show="Screen == 'readers'">
+        <p>This is the <strong>readers</strong> screen, which displays a list of the people who have been early readers for your story. Use it to take notes on their critiques and comments.</p>
+        <p>To <strong>add</strong> a reader:</p>
+        <ol>
+            <li>Click the <button type="button" class="btn btn-warning btn-sm" disabled="disabled">New reader</button> button.</li>
+            <li>Fill out the new reader form. <strong>Note:</strong> It may be helpful to have the form open for note-taking during a live critique, such as one that uses the Clarion critique group model.</li>
+            <li>Press the <button type="button" class="btn btn-primary btn-sm" disabled="disabled">Save</button> button.</li>
+        </ol>
+        <p>To <strong>view or edit</strong> a reader's critique, click on the person's name.</p>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" ng-click="OK()">OK</button>
+</div>
