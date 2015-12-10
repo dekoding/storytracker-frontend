@@ -514,6 +514,30 @@ router.route("/stories/:storyId/readers/:readerId")
     });
 });
 
+router.route("/backup.json")
+.get(function(req,res){
+    utilities.log("MESSAGE", "Client requested backup");
+    var response = [];
+    mongoOp.find({},function(err,data){
+        if(err) {
+            utilities.log("ERROR", "Failed to get stories list for backup");
+            response = {"error" : true,"message" : "Error fetching data"};
+            res.json(response);
+        } else {
+            utilities.log("MESSAGE", "Request successful.");
+            var storyBackup = [];
+
+            data.forEach(function(story){
+                storyBackup.push(story);
+            });
+
+            res.set({'Content-Disposition':'attachment; filename="backup.json"'});
+            res.send(storyBackup);
+            res.end()
+        }
+    });
+});
+
 app.use('/',router);
 
 app.listen(1337);

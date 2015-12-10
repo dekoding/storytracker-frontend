@@ -71,12 +71,42 @@
         <button type="button" class="btn btn-primary btn-lg" ng-click="newStory()">
             New story
         </button>
-        <div class="pull-right">
-            <p class="small">
-                <span class="label label-success">Green</span> - Currently at a market<br/>
-                <span class="label label-danger">Red</span> - Needs to be submitted<br/>
-                <span class="label label-default">Gray</span> - Not ready for submissions
-            </p>
+        <a class="btn btn-default btn-lg" href="/backup.json">Download</a>
+        <div class="pull-right container-fluid">
+            <div class="row">
+                <div class="col-sm-3">
+                    <span class="label label-success small" style="display: block; width:50px;">Green</span>
+                </div>
+                <div class="col-sm-8">
+                    <span class="small">Currently at a market
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <span class="label label-danger small" style="display: block; width:50px">Red</span>
+                </div>
+                <div class="col-sm-8">
+                    <span class="small">Ready to be submitted
+                </div>
+            </div>
+        </div>
+        <div class="pull-right container-fluid">
+            <div class="row">
+                <div class="col-sm-4">
+                    <span class="label label-info small" style="display: block; width:50px;">Blue</span>
+                </div>
+                <div class="col-sm-8">
+                    <span class="small">Previously sold
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <span class="label label-default small" style="display: block; width:50px">Gray</span>
+                </div>
+                <div class="col-sm-8">
+                    <span class="small">Not finished
+                </div>
+            </div>
         </div>
     </div>
 </div>
