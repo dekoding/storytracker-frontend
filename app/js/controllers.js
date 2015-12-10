@@ -1,6 +1,40 @@
-StoryTracker.controller('mainController', function($scope) {
+StoryTracker.controller('mainController', function($scope, $location, $routeParams, $uibModal) {
 	$scope.message = 'StoryTracker:';
 	$scope.byline = 'The authorship tool for tracking your stories.';
+	$scope.help = function() {
+		$scope.pathparts = $location.path().split('/');
+
+		if($routeParams.readerId) {
+			// We're at "reader"
+			$scope.Screen = "reader";
+		} else if($routeParams.subId) {
+			// We're at "submission"
+			$scope.Screen = "submission";
+		} else if($routeParams.storyId) {
+			if($scope.pathparts[3]) {
+				// We're either at "submmissions" or "readers"
+				$scope.Screen = $scope.pathparts[3];
+			} else {
+				// We're at "story"
+				$scope.Screen = "story";
+			}
+		} else {
+			// We're at "stories"
+			$scope.Screen = "stories";
+		}
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'parts/dialogs/help.html',
+			controller: 'HelpCtrl',
+			size: 'lg',
+			resolve: {
+				Screen: function() {
+					return $scope.Screen;
+        		}
+        	}
+		});
+
+	}
 });
 
 StoryTracker.controller('aboutController', function($scope) {
@@ -93,21 +127,6 @@ StoryTracker.controller('storiesController', function($scope, $uibModal, $filter
 			$scope.stories = Story.stories.query();
 		});
 	}
-
-	// Help dialog
-	$scope.help = function() {
-		var modalInstance = $uibModal.open({
-			animation: true,
-			templateUrl: 'parts/dialogs/help.html',
-			controller: 'HelpCtrl',
-			size: 'lg',
-			resolve: {
-				Screen: function() {
-					return "stories";
-        		}
-        	}
-		});
-	}
 });
 
 StoryTracker.controller('storyController', function($scope, $uibModal, $routeParams, $window, Story, Lists) {
@@ -185,21 +204,6 @@ StoryTracker.controller('subsController', function($scope, $uibModal, $routePara
 		});
 	}
 	$scope.submissions = Submission.submissions.get({storyId: $routeParams.storyId});
-
-	// Help dialog
-	$scope.help = function() {
-		var modalInstance = $uibModal.open({
-			animation: true,
-			templateUrl: 'parts/dialogs/help.html',
-			controller: 'HelpCtrl',
-			size: 'lg',
-			resolve: {
-				Screen: function() {
-					return "submissions";
-        		}
-        	}
-		});
-	}
 });
 
 StoryTracker.controller('subController', function($scope, $uibModal, $routeParams, $window, Submission, Lists) {
@@ -305,21 +309,6 @@ StoryTracker.controller('readersController', function($scope, $uibModal, $routeP
 		});
 	}
 	$scope.readers = Reader.readers.get({storyId: $routeParams.storyId});
-
-	// Help dialog
-	$scope.help = function() {
-		var modalInstance = $uibModal.open({
-			animation: true,
-			templateUrl: 'parts/dialogs/help.html',
-			controller: 'HelpCtrl',
-			size: 'lg',
-			resolve: {
-				Screen: function() {
-					return "readers";
-        		}
-        	}
-		});
-	}
 });
 
 StoryTracker.controller('readerController', function($scope, $uibModal, $routeParams, $window, Reader) {
