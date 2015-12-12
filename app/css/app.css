@@ -21,7 +21,7 @@ Set table elements to block mode.  (Normally they are inline).
 This allows a responsive table, such as one where columns can be stacked
 if the display is narrow.
 */
-table.table-fixedheader, table.table-fixedheader>thead, table.table-fixedheader>tbody, table.table-fixedheader>thead>tr, table.table-fixedheader>tbody>tr, table.table-fixedheader>thead>tr>th, table.table-fixedheader>tbody>td {
+table.table-fixedheader, table.table-fixedheader>thead, table.table-fixedheader>tbody, table.table-fixedheader>thead>tr, table.table-fixedheader>tbody>tr, table.table-fixedheader>thead>tr>th, table.table-fixedheader>tbody>tr>td {
 	display: block;
 }
 table.table-fixedheader>thead>tr:after, table.table-fixedheader>tbody>tr:after {
@@ -78,7 +78,7 @@ and the <td>).  We set to 20% here a default placeholder, but it can be
 overridden elsewhere.
 */
 
-table.table-fixedheader>thead tr th, table.table-fixedheader>tbody tr td {
+table.table-fixedheader>thead > tr > th, table.table-fixedheader>tbody > tr > td {
 	float: left;    
 	word-wrap:break-word;     
 }
@@ -113,10 +113,6 @@ table.table-fixedheader>thead tr th, table.table-fixedheader>tbody tr td {
 	width: 25%;
 }
 
-/*.table-fixedheader > tbody {
-	border-top: 6px solid !important;
-}*/
-
 /* Overrides for reader table */
 #readers > thead > tr > th:nth-child(2), #readers > tbody > tr > td:nth-child(2) {
 	width: 30% !important;
@@ -127,4 +123,18 @@ table.table-fixedheader>thead tr th, table.table-fixedheader>tbody tr td {
 
 td > span.search {
 	cursor: default !important;
+}
+
+/* Custom styles for story dropdowns */
+.btn-group-justified>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    width: 90%;
+    text-align: left;
+}
+.btn-group>.btn+.dropdown-toggle {
+	padding-right: 16px;
+}
+
+.open>.dropdown-menu {
+	width: 90%;
+	left: 8%;
 }
