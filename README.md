@@ -8,7 +8,7 @@ StoryTracker is a project to bring a fully functional web application for tracki
 * **Bootstrap** - A CSS and JavaScript front-end to make things pretty, developed by Twitter.
 
 ### Disclaimer
-This is an ALPHA application, and there are probably (definitely) bugs. If you are interested in helping develop it, feel free to fork it and submit your edits.
+This is an ALPHA application, very much pre-release, and there are probably (definitely) bugs. I take no responsibility for any harm this application does to the data you enter with it. If you are interested in helping develop it, feel free to fork it and submit your edits.
 
 ## Features
 * View, add, edit, and delete story metadata including genre, wordcount, writing status, and comments.
@@ -36,13 +36,12 @@ When you add your first story, StoryTracker will create a database called "story
 ## Known bugs
 * Node.js console logging is incomplete, and will remain so until I have the time to delve into `console.log()` options more deeply.
 * Date-based searching for submissions and readers is a work-in-progress and doesn't behave as expected.
-* If no reply date is specified for a submission, the statistics for that submission show a wait time of 16654 days. This will be corrected shortly
+* ~~If no reply date is specified for a submission, the statistics for that submission show a wait time of 16654 days. This will be corrected shortly.~~ FIXED 12/12/2015
 
 ## Plans
 In the future, I'd like to add:
 * An installer (possibly as an NPM package)
 * A report generator
-* An option to download the database as a spreadsheet.
 * Backup options for individual records.
 * And more...
 
