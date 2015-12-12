@@ -40,7 +40,12 @@
                     <tr ng-model="readers" ng-repeat="reader in readers.readers | orderBy:sortBy:sortReverse | filter:search">
                         <td><p class="form-control-static"><a ng-href="/#/stories/{{readers.storyId}}/readers/{{reader.readerId}}">{{reader.name}}</a></p></td>
                         <td>
-                            <input ng-change="$parent.updateReader(reader)" ng-model="reader.readDate" class="form-control" type="date" />
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-change="$parent.updateReader(reader)" is-open="status.subOpened" uib-datepicker-popup ng-model="reader.readDate" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="status.subOpened=!status.subOpened"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
                         </td>
                         <td>
                             <input ng-change="$parent.updateReader(reader)" ng-model="reader.comment" class="form-control" type="text" />

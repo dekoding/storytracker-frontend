@@ -21,7 +21,12 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="subDate-{{submission.storyId}}">Submission Date</label>
-                    <input ng-model="submission.subDate" ng-change="updateSub(submission)" class="form-control" id="subDate-{{submission.storyId}}" type="date" />
+                    <div class="input-group" id="subDate-{{submission.storyId}}">
+                        <input type="text" class="form-control" ng-change="updateSub(submission)" is-open="status.subOpened" uib-datepicker-popup ng-model="submission.subDate" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="status.subOpened=!status.subOpened"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="comment-{{submission.storyId}}">Comments</label>
@@ -31,7 +36,12 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="replyDate-{{submission.storyId}}">Reply Date</label>
-                    <input ng-model="submission.replyDate" ng-change="updateSub(submission)" class="form-control" id="replyDate-{{submission.storyId}}" type="date" />
+                    <div class="input-group" id="replyDate-{{submission.storyId}}">
+                        <input type="text" class="form-control" ng-change="updateSub(submission)" is-open="status.replyOpened" uib-datepicker-popup ng-model="submission.replyDate" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="status.replyOpened=!status.replyOpened"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <br/>

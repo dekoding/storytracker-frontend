@@ -3,12 +3,25 @@
     <h4 class="modal-title">New Reader for <em>{{title}}</em></h4>
 </div>
 <div class="modal-body">
-    <label for="new-name">Name</label>
-    <input ng-model="reader.name" class="form-control" type="text" id="new-name" />
-    <label for="new-readDate">Read Date</label>
-    <input ng-model="reader.readDate" class="form-control" type="date" id="new-readDate" />
-    <label for="new-comment">Comments</label>
-    <textarea ng-model="reader.comment" class="form-control" id="new-comment"></textarea>
+	<div class="row">
+		<div class="col-md-4">
+		    <label for="new-name">Name</label>
+		    <input ng-model="reader.name" class="form-control" type="text" id="new-name" />
+		</div>
+		<div class="col-md-4">
+			<label for="new-readDate">Read Date</label>
+            <div class="input-group" id="new-readDate">
+                <input type="text" class="form-control" is-open="status.readOpened" uib-datepicker-popup ng-model="reader.readDate" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="status.readOpened=!status.readOpened"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-4">
+		    <label for="new-comment">Comments</label>
+		    <textarea ng-model="reader.comment" class="form-control" id="new-comment"></textarea>
+		</div>
+	</div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" ng-click="CANCEL()">Cancel</button>

@@ -14,7 +14,7 @@ function convertDateStringsToDates(input) {
             if (!isNaN(milliseconds)) {
             	var date = new Date(milliseconds);
     			var newdate = new Date(date);
-    			newdate.setDate(newdate.getDate() + 1);
+    			newdate.setDate(newdate.getDate());
     			input[key] = newdate;
             }
         } else if (typeof value === "object") {

@@ -52,10 +52,20 @@
                     <tr ng-model="submissions" ng-repeat="submission in submissions.submissions | orderBy:sortBy:sortReverse | filter:search">
                         <td><p class="form-control-static"><a ng-href="/#/stories/{{submissions.storyId}}/submissions/{{submission.subId}}">{{submission.market}}</a></p></td>
                         <td>
-                            <input ng-change="$parent.updateSub(submission)" ng-model="submission.subDate" class="form-control" type="date" />
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-change="$parent.updateSub(submission)" is-open="status.subOpened" uib-datepicker-popup ng-model="submission.subDate" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="status.subOpened=!status.subOpened"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
                         </td>
                         <td>
-                            <input ng-change="$parent.updateSub(submission)" ng-model="submission.replyDate" class="form-control" type="date" />
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-change="$parent.updateSub(submission)" is-open="status.replyOpened" uib-datepicker-popup ng-model="submission.replyDate" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="status.replyOpened=!status.replyOpened"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
                         </td>
                         <td>
                             <select ng-change="$parent.updateSub(submission)" ng-model="submission.response" class="form-control" ng-options="response.name as response.id for response in responseList"></select>

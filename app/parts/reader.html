@@ -21,7 +21,12 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="readDate-{{reader.storyId}}">Read Date</label>
-                    <input ng-model="reader.readDate" ng-change="updateReader(reader)" class="form-control" id="readDate-{{reader.storyId}}" type="date" />
+                    <div class="input-group" id="readDate-{{reader.storyId}}">
+                        <input type="text" class="form-control" ng-change="updateReader(reader)" is-open="status.readerOpened" uib-datepicker-popup ng-model="reader.readDate" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="status.readerOpened=!status.readerOpened"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

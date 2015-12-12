@@ -222,11 +222,17 @@ StoryTracker.controller('subController', function($scope, $uibModal, $routeParam
 	}
 
 	$scope.dateDifference = function(replyDate, subDate) {
-		var date2 = new Date(replyDate);
+		if(replyDate) {
+			var date2 = new Date(replyDate);
+			var subtractor = 0;
+		} else {
+			var date2 = new Date();
+			var subtractor = 1;
+		}
     	var date1 = new Date(subDate);
     	var timeDiff = Math.abs(date2.getTime() - date1.getTime());
     	var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    	return diffDays;
+    	return diffDays - subtractor;
 	}
 
 	$scope.days = '';
