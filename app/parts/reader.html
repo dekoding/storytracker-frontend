@@ -14,12 +14,6 @@
                     <input ng-model="reader.name" ng-change="updateReader(reader)" class="form-control" type="text" id="name-{{reader.storyId}}" />
                 </div>
                 <div class="col-md-6">
-                    <label for="comment-{{reader.storyId}}">Comments</label>
-                    <textarea ng-model="reader.comment" ng-change="updateReader(reader)" class="form-control" id="comment-{{reader.storyId}}"></textarea>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
                     <label for="readDate-{{reader.storyId}}">Read Date</label>
                     <div class="input-group" id="readDate-{{reader.storyId}}">
                         <input type="text" class="form-control" ng-change="updateReader(reader)" is-open="status.readerOpened" uib-datepicker-popup ng-model="reader.readDate" close-text="Close" />
@@ -29,11 +23,23 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="comment-{{reader.storyId}}">Comments</label>
+                    <textarea ng-model="reader.comment" ng-change="updateReader(reader)" class="form-control" id="comment-{{reader.storyId}}"></textarea>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="panel-footer">
+    <div class="panel-footer visible-md-block visible-lg-block">
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-danger btn-lg" ng-click="deleteReader(reader)">
+            Delete Reader
+        </button>
+    </div>
+    <div class="panel-footer visible-sm-block visible-xs-block">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger btn-sm" ng-click="deleteReader(reader)">
             Delete Reader
         </button>
     </div>

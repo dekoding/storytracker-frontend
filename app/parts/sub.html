@@ -9,17 +9,11 @@
     <div class="panel-body">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="market-{{submission.storyId}}">Market</label>
                     <input ng-model="submission.market" ng-change="updateSub(submission)" class="form-control" type="text" id="market-{{submission.storyId}}" />
                 </div>
-                <div class="col-md-6">
-                    <label for="response-{{submission.storyId}}">Response</label>
-                    <select ng-model="submission.response" ng-change="updateSub(submission)" class="form-control" ng-options="response.name as response.id for response in responseList" id="response-{{submission.storyId}}"></select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="subDate-{{submission.storyId}}">Submission Date</label>
                     <div class="input-group" id="subDate-{{submission.storyId}}">
                         <input type="text" class="form-control" ng-change="updateSub(submission)" is-open="status.subOpened" uib-datepicker-popup ng-model="submission.subDate" close-text="Close" />
@@ -28,13 +22,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="comment-{{submission.storyId}}">Comments</label>
-                    <textarea ng-model="submission.comment" ng-change="updateSub(submission)" class="form-control" id="comment-{{submission.storyId}}"></textarea>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="replyDate-{{submission.storyId}}">Reply Date</label>
                     <div class="input-group" id="replyDate-{{submission.storyId}}">
                         <input type="text" class="form-control" ng-change="updateSub(submission)" is-open="status.replyOpened" uib-datepicker-popup ng-model="submission.replyDate" close-text="Close" />
@@ -43,7 +31,17 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
+                    <label for="response-{{submission.storyId}}">Response</label>
+                    <select ng-model="submission.response" ng-change="updateSub(submission)" class="form-control" ng-options="response.name as response.id for response in responseList" id="response-{{submission.storyId}}"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <label for="comment-{{submission.storyId}}">Comments</label>
+                    <textarea ng-model="submission.comment" ng-change="updateSub(submission)" class="form-control" id="comment-{{submission.storyId}}"></textarea>
+                </div>
+                <div class="col-md-3">
                     <br/>
                     <label>Turnaround time:</label>
                     <span ng-model="submission.days">{{dateDifference(submission.replyDate, submission.subDate)}}</span> days
@@ -51,9 +49,15 @@
             </div>
         </div>
     </div>
-    <div class="panel-footer">
+    <div class="panel-footer visible-md-block visible-lg-block">
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-danger btn-lg" ng-click="deleteSub(submission)">
+            Delete Submission
+        </button>
+    </div>
+    <div class="panel-footer visible-sm-block visible-xs-block">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger btn-sm" ng-click="deleteSub(submission)">
             Delete Submission
         </button>
     </div>

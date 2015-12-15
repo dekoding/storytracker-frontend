@@ -315,6 +315,14 @@ StoryTracker.controller('readersController', function($scope, $uibModal, $routeP
 		});
 	}
 	$scope.readers = Reader.readers.get({storyId: $routeParams.storyId});
+	$scope.dateForMobile = function(input) {
+		var date = new Date(input);
+
+		var m = date.getMonth() + 1;
+		var d = date.getDate();
+		var y = date.getFullYear();
+		return y + '-' + m + '-' + d;
+	}
 });
 
 StoryTracker.controller('readerController', function($scope, $uibModal, $routeParams, $window, Reader) {

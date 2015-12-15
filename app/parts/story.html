@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    <div class="panel-footer">
+    <div class="panel-footer visible-md-block visible-xl-block">
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-danger btn-lg" ng-click="deleteStory()">
             Delete Story
@@ -60,6 +60,16 @@
         <div class="btn-group pull-right">
             <a class="btn btn-lg btn-warning" ng-href="/#/stories/{{story.storyId}}/readers">Readers</a>
             <a class="btn btn-lg btn-success" ng-href="/#/stories/{{story.storyId}}/submissions">Submissions</a>
+        </div>
+    </div>
+    <div class="panel-footer visible-sm-block visible-xs-block">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger btn-sm" ng-click="deleteStory()">
+            Delete Story
+        </button>
+        <div class="btn-group pull-right">
+            <a class="btn btn-sm btn-warning" ng-href="/#/stories/{{story.storyId}}/readers">Readers</a>
+            <a class="btn btn-sm btn-success" ng-href="/#/stories/{{story.storyId}}/submissions">Submissions</a>
         </div>
     </div>
 </div>
