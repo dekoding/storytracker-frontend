@@ -17,6 +17,7 @@ This is an ALPHA application, very much pre-release, and there are probably (def
 * See at a glance which stories are currently at markets or have sold.
 * See detailed submission and reader statistics for your stories, such as number of rejections.
 * Download a backup of your information database at any time.
+* Responsive UI suitable for desktops, tablets, and mobile devices (only when installed to a server).
 
 ## Installation
 
@@ -29,7 +30,8 @@ This is an ALPHA application, very much pre-release, and there are probably (def
 ### Setup
 1. In the storytracker directory, install the dependencies using `npm install`.
 2. Run `node storytracker.js`.
-3. In your browser, go to http://127.0.0.1:1337/#/stories
+3. (Local installation) In your browser, go to http://127.0.0.1:1337/#/stories
+4. (Server installation) In your browser, go to http://servername:1337/#/stories
 
 When you add your first story, StoryTracker will create a database called "storytracker" with a collection called "stories" automatically. The database name can be customized by editing the file `models/mongo.js` if desired. For now, the collection name is not as easy to modify, since it is derived from the application URL.
 
