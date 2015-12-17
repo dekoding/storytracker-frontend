@@ -7,8 +7,10 @@ StoryTracker is a project to bring a fully functional web application for tracki
 * **Angular.js** - A JavaScript framework for MVC applications, developed by Google.
 * **Bootstrap** - A CSS and JavaScript front-end to make things pretty, developed by Twitter.
 
-### Disclaimer
-This is an ALPHA application, very much pre-release, and there are probably (definitely) bugs. I take no responsibility for any harm this application does to the data you enter with it. If you are interested in helping develop it, feel free to fork it and submit your edits.
+**Disclaimer**
+This is an ALPHA application, very much pre-release, and there are probably (definitely) bugs. I take no responsibility for any harm this application does to the data you enter with it.
+
+Nevertheless, I've gone to considerable effort to ensure that it is stable, reliable, and safe to use. If you are interested in helping develop it, feel free to submit your edits.
 
 ## Features
 * View, add, edit, and delete story metadata including genre, wordcount, writing status, and comments.
@@ -17,7 +19,7 @@ This is an ALPHA application, very much pre-release, and there are probably (def
 * See at a glance which stories are currently at markets or have sold.
 * See detailed submission and reader statistics for your stories, such as number of rejections.
 * Download a backup of your information database at any time.
-* Responsive UI suitable for desktops, tablets, and mobile devices (only when installed to a server).
+* Responsive UI suitable for desktops, tablets, and mobile devices (when installed to a server).
 
 ## Installation
 
@@ -34,11 +36,6 @@ This is an ALPHA application, very much pre-release, and there are probably (def
 4. (Server installation) In your browser, go to http://servername:1337/#/stories
 
 When you add your first story, StoryTracker will create a database called "storytracker" with a collection called "stories" automatically. The database name can be customized by editing the file `models/mongo.js` if desired. For now, the collection name is not as easy to modify, since it is derived from the application URL.
-
-## Known bugs
-* Node.js console logging is incomplete, and will remain so until I have the time to delve into `console.log()` options more deeply.
-* Date-based searching for submissions and readers is a work-in-progress and doesn't behave as expected.
-* ~~If no reply date is specified for a submission, the statistics for that submission show a wait time of 16654 days. This will be corrected shortly.~~ FIXED 12/12/2015
 
 ## Plans
 In the future, I'd like to add:
