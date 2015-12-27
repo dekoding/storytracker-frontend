@@ -37,11 +37,15 @@ Nevertheless, I've gone to considerable effort to ensure that it is stable, reli
 
 When you add your first story, StoryTracker will create a database called "storytracker" with a collection called "stories" automatically. The database name can be customized by editing the file `models/mongo.js` if desired. For now, the collection name is not as easy to modify, since it is derived from the application URL.
 
+NOTE: At this time, StoryTracker does not support mutliple users or logins. If you need to allow multiple users, you will need to run multiple instances, and modify the models/mongo.js file to create a different database in each instance. When
+ a login system has been finished, databases will be created on a per-user basis. Until then, this will need to be set manually.
+
 ## Plans
 In the future, I'd like to add:
 * An installer (possibly as an NPM package)
 * A report generator
 * Backup options for individual records.
+* Multiple users/logins
 * And more...
 
 ## HELP!
