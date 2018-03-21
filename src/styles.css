@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://use.fontawesome.com/releases/v5.0.8/css/solid.css');
+@import url('https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css');
+
+body {
+    padding-top: 56px;
+    margin-bottom: 60px;
+}
+
+main > .container {
+    padding-bottom: 20px;
+    margin-bottom: 72px;
+}
