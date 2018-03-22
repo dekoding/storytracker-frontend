@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
 import { AuthService } from '../../services/auth.service';
+import { User } from '../../classes/user';
 
 @Component({
     selector: 'app-signup',
@@ -9,11 +15,28 @@ import { AuthService } from '../../services/auth.service';
 export class SignupComponent implements OnInit {
 
     constructor(
-        private auth: AuthService
+        private router: Router,
+        private modalService: BsModalService,
+        private auth: AuthService,
+
     ) { }
 
     ngOnInit() {
     }
+
+    modalRef: BsModalRef;
+
+    openModal(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template);
+    }
+
+    closeModal() {
+        this.modalRef.hide();
+        if (this.auth.isLoggedIn) {
+            this.router.navigate(['/stories']);
+        }
+    }
+
     user = {
         username: '',
         first_name: '',
@@ -76,7 +99,6 @@ export class SignupComponent implements OnInit {
                 isValid = false;
             }
         });
-        console.log(isValid);
         this.userIsValid = isValid;
     }
 
@@ -99,6 +121,30 @@ export class SignupComponent implements OnInit {
                             this.invalid.email = true;
                             this.message.email = 'This email is already associated with an account.';
                         }
+                    }
+                },
+                error => {
+                    console.log(error);
+                }
+            );
+    }
+
+    signup(notice: TemplateRef<any>) {
+        const newUser = new User();
+        newUser.username = this.user.username;
+        newUser.first_name = this.user.first_name;
+        newUser.last_name = this.user.last_name;
+        newUser.email = this.user.email;
+        newUser.password = this.user.password;
+
+        this.auth.signup(newUser)
+            .subscribe(
+                success => {
+                    if (success) {
+                        this.auth.isLoggedIn = true;
+                        this.openModal(notice);
+                    } else {
+                        console.log('Failed! Check server.')
                     }
                 },
                 error => {

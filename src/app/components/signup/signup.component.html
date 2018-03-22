@@ -1,6 +1,6 @@
 <main class="bg-light rounded-bottom">
     <div class="container">
-        <form class="form-horizontal" (ngSubmit)="signup()" #f="ngForm">
+        <form class="form-horizontal" (ngSubmit)="signup(notice)" #f="ngForm">
             <div class="row">
                 <div class="col-3"></div>
                 <div class="col-6">
@@ -153,3 +153,18 @@
         </form>
     </div>
 </main>
+
+<ng-template #notice>
+    <div class="modal-header bg-success text-white">
+        <h4 class="modal-title pull-left">Success!</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Welcome to StoryTracker! You are now registered as "{{user.username}}," and can begin using the tracker immediately!
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-outline-success" (click)="closeModal()">Awesome!</button>
+    </div>
+</ng-template>

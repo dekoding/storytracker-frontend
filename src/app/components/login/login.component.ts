@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
                     if (success) {
                         this.auth.isLoggedIn = true;
                         this.router.navigate(['/stories']);
+                    } else {
+                        console.log('There was an error.');
                     }
                 },
                 error => {

@@ -6,6 +6,8 @@ import { SharedService } from './shared.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import { User } from '../classes/user';
+
 export interface LoginResponse {
     success: boolean;
     message: string;
@@ -15,6 +17,11 @@ export interface SignupTest {
     success: boolean;
     username: boolean;
     email: boolean;
+}
+
+export interface SignupResponse {
+    success: boolean;
+    message: string;
 }
 
 @Injectable()
@@ -54,6 +61,16 @@ export class AuthService {
                 this.signupDuplicate.username = response.username;
                 this.signupDuplicate.email = response.email;
 
+                return response.success;
+            });
+    }
+
+    signup(user: User) {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+
+        return this.http.post(`${this.shared.config.api}/api/signup`,JSON.stringify(user), { headers })
+            .map((response: SignupResponse) => {
+                console.log(response.success, response.message);
                 return response.success;
             });
     }
