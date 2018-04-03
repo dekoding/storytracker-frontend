@@ -11,3 +11,20 @@ main > .container {
     padding-bottom: 20px;
     margin-bottom: 72px;
 }
+
+.main-content {
+    min-height: calc(100vh - 116px);
+}
+
+textarea {
+    height: 115px;
+}
+
+.story-record {
+    cursor: pointer;
+}
+
+.record-container {
+    height: calc(100vh - 272px);
+    overflow-y: auto;
+}

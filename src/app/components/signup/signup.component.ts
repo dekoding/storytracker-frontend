@@ -91,15 +91,11 @@ export class SignupComponent implements OnInit {
     }
 
     validityTest() {
-        const keys = Object.keys(this.invalid);
-
-        let isValid = true;
-        keys.forEach(key => {
-            if (this.invalid[key]) {
-                isValid = false;
+        Object.values(this.invalid).forEach(value => {
+            if (value) {
+                this.userIsValid = false;
             }
         });
-        this.userIsValid = isValid;
     }
 
     signupTest() {

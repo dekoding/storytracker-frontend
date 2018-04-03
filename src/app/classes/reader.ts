@@ -1,7 +1,7 @@
 export class Reader {
-	readerId:Number;
+	readerId:number;
 	name:String;
 	readDate:Date;
-    rating:Number;
+    rating:number;
 	comment:String;
 }

@@ -1,3 +1,47 @@
-<p>
-  submissions works!
-</p>
+<div class="container-fluid bg-white main-content pt-3 pb-3">
+    <div class="card bg-light">
+        <app-storynav class="card-header navbar"></app-storynav>
+        <div class="card-body record-container">
+            <div class="row">
+                <div class="col-8">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>Market</th>
+                                <th>Submission Date</th>
+                                <th>Reply Date</th>
+                                <th>Response</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-secondary story-record"
+                                *ngFor="let sub of data.selectedStory.submissions | search : shared.state.searchText : shared.state.searchCase"
+                                [routerLink]="sub.subId"
+                            >
+                                <td>{{sub.market}}</td>
+                                <td>{{sub.subDate.getFullYear()}}-{{sub.subDate.getMonth() + 1}}-{{sub.subDate.getDate()}}</td>
+                                <td *ngIf="sub.replyDate !== null && sub.replyDate !== undefined">
+                                    {{sub.replyDate.getFullYear()}}-{{sub.replyDate.getMonth() + 1}}-{{sub.replyDate.getDate()}}
+                                </td>
+                                <td *ngIf="sub.replyDate === null || sub.replyDate === undefined"></td>
+                                <td>{{sub.replyDate !== null && sub.replyDate !== undefined ? sub.response : 'Waiting'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-4">
+                    <h5>
+                        Future Markets
+                    </h5>
+                    <textarea class="future-markets form-control mb-2" [(ngModel)]="data.selectedStory.futureMarkets"></textarea>
+                    <button class="btn btn-outline-primary" (click)="saveFutureMarkets()"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-dark" (click)="newSub()">
+                <i class="fas fa-file-alt"></i> Add Submission
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,17 @@
+import { Submission } from './submission';
+import { Reader } from './reader';
+
 export class Story {
-	storyId:Number;
+	storyId:number;
     title:String;
-    words:Number;
+    words:number;
     genre:String;
     status:String;
+	finished?:boolean;
     comments:String;
+	avgRating?:number;
+	submissions: Array<Submission>;
+	readers: Array<Reader>;
+	atMarket?: boolean;
+	futureMarkets?:String;
 }

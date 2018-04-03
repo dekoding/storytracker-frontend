@@ -1,0 +1,68 @@
+<ul class="nav nav-pills">
+    <li class="nav-item">
+        <a class="nav-link small" routerLink="/stories" [class.active]="routeParts.length === 1">
+            Stories
+        </a>
+    </li>
+
+    <li class="nav-item" *ngIf="routeParts.length > 1">
+        <a class="nav-link disabled small"><i class="fas fa-angle-right"></i></a>
+    </li>
+    <li class="nav-item" *ngIf="routeParts.length > 1">
+        <a class="nav-link small" [routerLink]="['/stories', routeParts[1]]" [class.active]="routeParts.length === 2">
+            "{{data.selectedStory.title}}"
+        </a>
+    </li>
+
+    <li class="nav-item" *ngIf="routeParts.length > 2 && routeParts[2] === 'submissions'">
+        <a class="nav-link disabled small"><i class="fas fa-angle-right"></i></a>
+    </li>
+    <li class="nav-item" *ngIf="routeParts.length > 2 && routeParts[2] === 'submissions'">
+        <a class="nav-link small" [routerLink]="['/stories/', routeParts[1], 'submissions']" [class.active]="routeParts.length === 3">
+            Submissions
+        </a>
+    </li>
+
+    <li class="nav-item" *ngIf="shared.state.subId !== 0">
+        <a class="nav-link disabled small"><i class="fas fa-angle-right"></i></a>
+    </li>
+    <li class="nav-item" *ngIf="shared.state.subId !== 0">
+        <a class="nav-link small" [routerLink]="['/stories/', routeParts[1], 'submissions', routeParts[3]]" [class.active]="routeParts.length === 4">
+            {{data.selectedSubmission.market}}
+        </a>
+    </li>
+
+    <li class="nav-item" *ngIf="routeParts.length > 2 && routeParts[2] === 'readers'">
+        <a class="nav-link disabled small"><i class="fas fa-angle-right"></i></a>
+    </li>
+    <li class="nav-item" *ngIf="routeParts.length > 2 && routeParts[2] === 'readers'">
+        <a class="nav-link small" [routerLink]="['/stories/', routeParts[1], 'readers']" [class.active]="routeParts.length === 3">
+            Readers
+        </a>
+    </li>
+
+    <li class="nav-item" *ngIf="shared.state.readerId !== 0">
+        <a class="nav-link disabled small"><i class="fas fa-angle-right"></i></a>
+    </li>
+    <li class="nav-item" *ngIf="shared.state.readerId !== 0">
+        <a class="nav-link small" [routerLink]="['/stories/', routeParts[1], 'readers', routeParts[3]]" [class.active]="routeParts.length === 4">
+            {{data.selectedReader.name}}
+        </a>
+    </li>
+</ul>
+<div class="form-inline ml-auto" *ngIf="shared.state.searchEnabled">
+    <input
+        type="text"
+        class="form-control form-control-sm"
+        [(ngModel)]="shared.state.searchText"
+        placeholder="Search any field"
+    />
+    <button
+        class="btn btn-primary btn-sm ml-2"
+        title="Case Sensitive"
+        [class.active]="shared.state.searchCase"
+        (click)="shared.state.searchCase = !shared.state.searchCase"
+    >
+        Aa
+    </button>
+</div>

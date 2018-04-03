@@ -1,8 +1,8 @@
 export class Submission {
-	subId:Number;
+	subId:number;
 	market:String;
 	subDate:Date;
-	replyDate:Date;
+	replyDate?:Date;
 	response:String;
 	comment:String;
 }

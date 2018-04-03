@@ -1,0 +1,125 @@
+<div class="container-fluid bg-white main-content pt-3 pb-3">
+    <div class="card bg-light">
+        <app-storynav class="card-header navbar"></app-storynav>
+        <div class="card-body record-container">
+            <h5 class="card-title">
+                Submission Details
+            </h5>
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group mb-2">
+                        <label>Market</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{submission.subId}}.</span>
+                            </div>
+                            <input
+                                [(ngModel)]="submission.market"
+                                type="text"
+                                class="form-control"
+                                placeholder="Market"
+                                aria-label="Market"
+                            />
+                            <div class="input-group-append" dropdown>
+                                <button type="button" dropdownToggle class="btn btn-outline-success dropdown-toggle">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                                    <li role="menuitem" *ngFor="let market of data.markets">
+                                        <a class="dropdown-item" (click)="submission.market = market">
+                                            {{market}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group mb-2">
+                                <label>Submission Date</label>
+                                <div class="input-group">
+                                    <input
+                                        [(ngModel)]="submission.subDate"
+                                        #subDate="bsDatepicker"
+                                        bsDatepicker
+                                        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                                        type="text"
+                                        class="form-control form-control-sm"
+                                        aria-label="Submission Date"
+                                    />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="subDate.toggle()">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group mb-2">
+                                <label>Reply Date</label>
+                                <div class="input-group">
+                                    <input
+                                        [(ngModel)]="submission.replyDate"
+                                        #replyDate="bsDatepicker"
+                                        bsDatepicker
+                                        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                                        type="text"
+                                        class="form-control form-control-sm"
+                                        aria-label="Reply Date"
+                                    />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="replyDate.toggle()">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group mb-2">
+                                <label>Response</label>
+                                <div class="input-group">
+                                    <input *ngIf="submission.replyDate === null || submission.replyDate === undefined"
+                                        type="text"
+                                        class="form-control-plaintext"
+                                        value="Waiting"
+                                        readonly
+                                    />
+                                    <select *ngIf="submission.replyDate !== null && submission.replyDate !== undefined"
+                                        [(ngModel)]="submission.response"
+                                        class="form-control"
+                                        aria-label="Response"
+                                    >
+                                        <option value="Sold">Sold</option>
+                                        <option value="Rejected">Rejected</option>
+                                        <option value="Rewrite">Rewrite</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group mb-2">
+                        <label>Comments</label>
+                        <textarea
+                            [(ngModel)]="submission.comment"
+                            class="form-control"
+                            aria-label="Comments"
+                        ></textarea>
+                    </div>
+                </div>
+            </div>
+            <div *ngFor="let alert of alerts">
+                <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{alert.msg}}</alert>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-outline-primary" [disabled]="!shared.state.submissionChanged" (click)="save()">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+    </div>
+</div>

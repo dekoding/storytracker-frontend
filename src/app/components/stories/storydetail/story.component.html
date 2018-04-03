@@ -1,0 +1,108 @@
+<div class="container-fluid bg-white main-content pt-3 pb-3">
+    <div class="card bg-light">
+        <app-storynav class="card-header navbar"></app-storynav>
+        <div class="card-body record-container">
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group mb-2">
+                        <label>Title</label>
+                        <input
+                            [(ngModel)]="story.title"
+                            type="text"
+                            class="form-control"
+                            placeholder="Story title"
+                            aria-label="Story title"
+                        />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Comments</label>
+                        <textarea
+                            [(ngModel)]="story.comments"
+                            class="form-control"
+                            aria-label="Comments"
+                        ></textarea>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group mb-2">
+                        <label>Genre</label>
+                        <div class="input-group">
+                            <input
+                                [(ngModel)]="story.genre"
+                                (keyup)="data.updateDropdowns()"
+                                type="text"
+                                class="form-control"
+                                placeholder="Genre"
+                                aria-label="Genre"
+                            />
+                            <div class="input-group-append" dropdown>
+                                <button type="button" dropdownToggle class="btn btn-outline-info dropdown-toggle">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                                    <li role="menuitem" *ngFor="let genre of data.genres">
+                                        <a class="dropdown-item" (click)="story.genre = genre">
+                                            {{genre}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Word count</label>
+                        <input
+                            [(ngModel)]="story.words"
+                            type="text"
+                            class="form-control"
+                            aria-label="Word count"
+                        />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Status</label>
+                        <div class="input-group">
+                            <input
+                                [(ngModel)]="story.status"
+                                (keyup)="data.updateDropdowns()"
+                                type="text"
+                                class="form-control"
+                                placeholder="Status"
+                                aria-label="Status"
+                            />
+                            <div class="input-group-append" dropdown>
+                                <button type="button" dropdownToggle class="btn btn-outline-info dropdown-toggle">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                                    <li role="menuitem" *ngFor="let status of data.statuses">
+                                        <a class="dropdown-item" (click)="story.status = status">
+                                            {{status}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="story.finished" id="finished">
+                        <label class="form-check-label" for="finished">&nbsp;Finished</label>
+                    </div>
+                </div>
+            </div>
+            <div *ngFor="let alert of alerts" class="mt-4">
+                <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{alert.msg}}</alert>
+            </div>
+        </div>
+        <div class="card-footer navbar">
+            <button class="btn btn-outline-primary mr-auto" [disabled]="!shared.state.storyChanged" (click)="save()">
+                <i class="fas fa-save"></i> Save
+            </button>
+            <a class="text-success" routerLink="submissions">
+                <i class="fas fa-list"></i> Submissions
+            </a>
+            <a class="text-info ml-3" routerLink="readers">
+                <i class="fas fa-users"></i> Readers
+            </a>
+        </div>
+    </div>
+</div>

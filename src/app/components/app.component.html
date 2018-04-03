@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-warning">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" routerLink="/"><i class="fas fa-book"></i>&nbsp;StoryTracker</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
@@ -24,8 +24,29 @@
         </div>
     </nav>
 </header>
-<div class="container-fluid">
-    <router-outlet></router-outlet>
+<div class="row mr-0">
+    <div class="col-2 pr-0" *ngIf="auth.isLoggedIn">
+        <div class="sidebar position-sticky d-flex flex-column bg-info">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Statistics
+                    </h5>
+                    <pre>
+Stories:     {{data.stats.stories}}
+Submissions: {{data.stats.submissions}}
+Waiting:     {{data.stats.waiting}}
+Rewrite:     {{data.stats.rewrites}}
+Sold:        {{data.stats.sales}}
+Rejected:    {{data.stats.rejections}}
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-10 pl-0 pr-0">
+        <router-outlet></router-outlet>
+    </div>
 </div>
 <footer class="footer">
     <div class="container">
