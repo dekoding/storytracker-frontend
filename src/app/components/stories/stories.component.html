@@ -1,0 +1,37 @@
+<div class="container-fluid bg-white main-content pt-3 pb-3">
+    <div class="card bg-light">
+        <app-storynav class="card-header navbar"></app-storynav>
+        <div class="card-body record-container">
+            <table class="table table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Genre</th>
+                        <th>Status</th>
+                        <th># of Submissions</th>
+                        <th># of Readers</th>
+                        <th>At a Market</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-secondary story-record"
+                        *ngFor="let story of data.stories | search : shared.state.searchText : shared.state.searchCase"
+                        [routerLink]="story.storyId"
+                    >
+                        <td>{{story.title}}</td>
+                        <td>{{story.genre}}</td>
+                        <td>{{story.status}}</td>
+                        <td>{{story.submissions.length}}</td>
+                        <td>{{story.readers.length}}</td>
+                        <td>{{story.atMarket ? 'Yes' : 'No'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-dark" (click)="newStory()">
+                <i class="fas fa-file"></i> Add Story
+            </button>
+        </div>
+    </div>
+</div>

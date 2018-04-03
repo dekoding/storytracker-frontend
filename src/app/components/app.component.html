@@ -1,0 +1,55 @@
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" routerLink="/"><i class="fas fa-book"></i>&nbsp;StoryTracker</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="docs">Documentation</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-2">
+                <li class="nav-item" *ngIf="auth.isLoggedIn">
+                    <a class="nav-link" routerLink="stories">My Stories</a>
+                </li>
+                <li class="nav-item" *ngIf="!auth.isLoggedIn">
+                    <a class="btn btn-outline-primary" routerLink="login">Sign In</a>
+                </li>
+                <li class="nav-item ml-1" *ngIf="!auth.isLoggedIn">
+                    <a class="btn btn-outline-secondary" routerLink="signup">Create Account</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="row mr-0">
+    <div class="col-2 pr-0" *ngIf="auth.isLoggedIn">
+        <div class="sidebar position-sticky d-flex flex-column bg-info">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Statistics
+                    </h5>
+                    <pre>
+Stories:     {{data.stats.stories}}
+Submissions: {{data.stats.submissions}}
+Waiting:     {{data.stats.waiting}}
+Rewrite:     {{data.stats.rewrites}}
+Sold:        {{data.stats.sales}}
+Rejected:    {{data.stats.rejections}}
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-10 pl-0 pr-0">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">Copyright 2018, Damon Kaswell </span>
+    </div>
+</footer>

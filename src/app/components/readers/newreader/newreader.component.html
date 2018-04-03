@@ -1,0 +1,38 @@
+<div class="modal-header bg-success text-white">
+    <h4 class="modal-title pull-left">Create new reading record</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <div class="form-group mb-2">
+            <label>Name</label>
+            <div class="input-group">
+                <input
+                    [(ngModel)]="reader.name"
+                    type="text"
+                    class="form-control"
+                    placeholder="Name"
+                    aria-label="Name"
+                />
+                <div class="input-group-append" dropdown>
+                    <button type="button" dropdownToggle class="btn btn-outline-success dropdown-toggle">
+                        <span class="caret"></span>
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu">
+                        <li role="menuitem" *ngFor="let name of data.names">
+                            <a class="dropdown-item" (click)="reader.name = name">
+                                {{name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-outline-success" (click)="save()"><i class="fas fa-save"></i> Save</button>
+    <button class="btn btn-outline-secondary ml-4" (click)="cancel()"><i class="fas fa-ban"></i> Cancel</button>
+</div>

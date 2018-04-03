@@ -1,0 +1,170 @@
+<main class="bg-light rounded-bottom">
+    <div class="container">
+        <form class="form-horizontal" (ngSubmit)="signup(notice)" #f="ngForm">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <h2>Register New User</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 field-label-responsive">
+                    <label for="username">Username</label>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-address-card"></i></div>
+                            <input
+                                [(ngModel)]="user.username"
+                                (keydown.enter)="$event.preventDefault()"
+                                (keyup)="validate('username')"
+                                type="text"
+                                name="username"
+                                class="form-control"
+                                id="username"
+                                placeholder="Your desired username"
+                                required
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-control-feedback">
+                        <span class="text-danger align-middle" *ngIf="invalid.username">
+                            {{message.username}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 field-label-responsive">
+                    <label for="first-name">First Name</label>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-user"></i></div>
+                            <input [(ngModel)]="user.first_name" (keydown.enter)="$event.preventDefault()"
+                            (keyup)="validate('first_name')" type="text" name="first-name" class="form-control" id="first-name"
+                            placeholder="John" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-control-feedback">
+                        <span class="text-danger align-middle" *ngIf="invalid.first_name">
+                            {{message.first_name}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 field-label-responsive">
+                    <label for="last-name">Last Name</label>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-user"></i></div>
+                            <input [(ngModel)]="user.last_name" (keydown.enter)="$event.preventDefault()"
+                            (keyup)="validate('last_name')" type="text" name="last-name" class="form-control" id="last-name"
+                            placeholder="Doe" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-control-feedback">
+                        <span class="text-danger align-middle" *ngIf="invalid.last_name">
+                            {{message.last_name}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 field-label-responsive">
+                    <label for="email">E-Mail Address</label>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-at"></i></div>
+                            <input [(ngModel)]="user.email" (keydown.enter)="$event.preventDefault()"
+                            (keyup)="validate('email')"
+                            type="text" name="email" class="form-control" id="email"
+                            placeholder="you@example.com" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-control-feedback">
+                        <span class="text-danger align-middle" *ngIf="invalid.email">
+                            {{message.email}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 field-label-responsive">
+                    <label for="password">Password</label>
+                </div>
+                <div class="col-6">
+                    <div class="form-group has-danger">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-key"></i></div>
+                            <input type="password" (keydown.enter)="$event.preventDefault()"
+                            (keyup)="validate('password')" name="password" class="form-control" id="password"
+                            placeholder="Password" required [(ngModel)]="user.password"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-control-feedback">
+                        <span class="text-danger align-middle" *ngIf="invalid.password">
+                            {{message.password}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 field-label-responsive">
+                    <label for="password-confirmation">Confirm Password</label>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem">
+                                <i class="fas fa-repeat"></i>
+                            </div>
+                            <input type="password" (keydown.enter)="$event.preventDefault()"
+                            (keyup)="validate('password')" name="password-confirmation" class="form-control"
+                            id="password-confirmation" placeholder="Password" required [(ngModel)]="user.password_confirmation"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <button type="submit" [disabled]="!userIsValid" class="btn btn-success"><i class="fas fa-user-plus"></i> Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<ng-template #notice>
+    <div class="modal-header bg-success text-white">
+        <h4 class="modal-title pull-left">Success!</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Welcome to StoryTracker! You are now registered as "{{user.username}}," and can begin using the tracker immediately!
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-outline-success" (click)="closeModal()">Awesome!</button>
+    </div>
+</ng-template>

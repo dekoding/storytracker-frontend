@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://use.fontawesome.com/releases/v5.0.8/css/solid.css');
+@import url('https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css');
+
+body {
+    padding-top: 56px;
+    margin-bottom: 60px;
+}
+
+main > .container {
+    padding-bottom: 20px;
+    margin-bottom: 72px;
+}
+
+.main-content {
+    min-height: calc(100vh - 116px);
+}
+
+textarea {
+    height: 115px;
+}
+
+.story-record {
+    cursor: pointer;
+}
+
+.record-container {
+    height: calc(100vh - 272px);
+    overflow-y: auto;
+}

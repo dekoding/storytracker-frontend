@@ -1,0 +1,35 @@
+<div class="container-fluid bg-white main-content pt-3 pb-3">
+    <div class="card bg-light">
+        <app-storynav class="card-header navbar"></app-storynav>
+        <div class="card-body record-container">
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-secondary story-record"
+                                *ngFor="let reader of data.selectedStory.readers | search : shared.state.searchText : shared.state.searchCase"
+                                [routerLink]="reader.readerId"
+                            >
+                                <td>{{reader.name}}</td>
+                                <td>{{reader.readDate.getFullYear()}}-{{reader.readDate.getMonth() + 1}}-{{reader.readDate.getDate()}}</td>
+                                <td><rating [(ngModel)]="reader.rating" [max]="10" [readonly]="true"></rating></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-dark" (click)="newReader()">
+                <i class="fas fa-file-alt"></i> Add Reader
+            </button>
+        </div>
+    </div>
+</div>
