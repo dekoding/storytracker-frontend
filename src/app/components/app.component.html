@@ -7,7 +7,7 @@
                     <a class="nav-link" routerLink="stories">My Stories</a>
                 </li>
                 <li class="nav-item" *ngIf="auth.isLoggedIn">
-                    <a class="btn btn-success" (click)="showStats(stats)">My Statistics</a>
+                    <a class="nav-link" (click)="showStats(statistics)">My Statistics</a>
                 </li>
             </ul>
             <ul class="navbar-nav mr-2">
