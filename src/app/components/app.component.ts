@@ -63,40 +63,34 @@ export class AppComponent implements OnInit {
         }
 
         if (mode === 'stories') {
-            this.shared.enableNewButton('stories');
             this.shared.state.storyId = 0;
             this.shared.state.subId = 0;
             this.shared.state.readerId = 0;
         }
 
         if (mode === 'story') {
-            this.shared.disableNewButtons();
             this.shared.state.subId = 0;
             this.shared.state.readerId = 0;
         }
 
         if (mode === 'submissions') {
-            this.shared.enableNewButton('submissions');
             this.shared.state.subId = 0;
             this.shared.state.readerId = 0;
         }
 
         if (mode === 'submission') {
             this.shared.state.subId = +this.routeParts[3];
-            this.shared.disableNewButtons();
             this.data.selectedSubmission = this.data.selectedStory.submissions
                 .find(submission => submission.subId === this.shared.state.subId);
         }
 
         if (mode === 'readers') {
-            this.shared.enableNewButton('readers');
             this.shared.state.subId = 0;
             this.shared.state.readerId = 0;
         }
 
         if (mode === 'reader') {
             this.shared.state.readerId = +this.routeParts[3];
-            this.shared.disableNewButtons();
             this.data.selectedReader = this.data.selectedStory.readers
                 .find(reader => reader.readerId === this.shared.state.readerId);
         }
@@ -174,5 +168,9 @@ export class AppComponent implements OnInit {
                     });
             }
         });
+    }
+
+    showStats(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template);
     }
 }

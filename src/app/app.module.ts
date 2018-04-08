@@ -15,8 +15,8 @@ import { SignupComponent } from './components/signup/signup.component';
 // Application components - protected
 import { StoryTrackerModule } from './modules/storytracker/storytracker.module';
 
-// Services
-import { SharedService } from './services/shared.service';
+// Services and configuration
+import { SharedModule, SharedService } from './services/shared.service';
 import { DataService } from './services/data.service';
 
 const routes: Routes = [
@@ -46,6 +46,7 @@ const routes: Routes = [
     ],
     providers: [
         SharedService,
+        SharedModule.init(),
         DataService
     ],
     bootstrap: [AppComponent]
