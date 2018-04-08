@@ -10,9 +10,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
     constructor(
-        private shared: SharedService,
-        private router: Router,
-        private auth: AuthService
+        public shared: SharedService,
+        public router: Router,
+        public auth: AuthService
     ) { }
 
     ngOnInit() {}
@@ -28,11 +28,11 @@ export class LoginComponent implements OnInit {
                         this.auth.isLoggedIn = true;
                         this.router.navigate(['/stories']);
                     } else {
-                        console.log('There was an error.');
+                        alert('There was an error.');
                     }
                 },
                 error => {
-                    console.log(error);
+                    alert(error);
                 }
             );
     }

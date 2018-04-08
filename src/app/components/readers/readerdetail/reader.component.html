@@ -1,27 +1,21 @@
-<div class="container-fluid bg-white main-content pt-3 pb-3">
-    <div class="card bg-light">
+<div class="container-fluid bg-white main-content p-0">
+    <div class="card bg-light border-0">
         <app-storynav class="card-header navbar"></app-storynav>
         <div class="card-body record-container">
-            <h5 class="card-title">
-                Reader Details
-            </h5>
-            <div class="row">
-                <div class="col-8">
+            <div class="row bg-info text-white border rounded p-4 m-3">
+                <div class="col-6">
                     <div class="form-group mb-2">
                         <label>Name</label>
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">{{reader.readerId}}.</span>
-                            </div>
                             <input
                                 [(ngModel)]="reader.name"
                                 type="text"
-                                class="form-control"
+                                class="form-control form-control-sm"
                                 placeholder="Reader"
                                 aria-label="Reader"
                             />
-                            <div class="input-group-append">
-                                <button type="button" dropdownToggle class="btn btn-outline-success dropdown-toggle">
+                            <div class="input-group-append" dropdown>
+                                <button type="button" dropdownToggle class="btn btn-primary btn-sm dropdown-toggle">
                                     <span class="caret"></span>
                                 </button>
                                 <ul *dropdownMenu class="dropdown-menu" role="menu">
@@ -34,44 +28,43 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group mb-2">
-                                <label>Read on</label>
-                                <div class="input-group">
-                                    <input
-                                        [(ngModel)]="reader.readDate"
-                                        #subDate="bsDatepicker"
-                                        bsDatepicker
-                                        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
-                                        type="text"
-                                        class="form-control form-control-sm"
-                                        aria-label="Read Date"
-                                    />
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" (click)="subDate.toggle()">
-                                            <i class="fas fa-calendar-alt"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="form-group mb-2">
-                                <label>Rating</label><br/>
-                                <rating [(ngModel)]="reader.rating" [max]="10" [readonly]="false"></rating>
+                </div>
+                <div class="col-3">
+                    <div class="form-group mb-2">
+                        <label>Read on</label>
+                        <div class="input-group">
+                            <input
+                                [(ngModel)]="reader.readDate"
+                                #subDate="bsDatepicker"
+                                bsDatepicker
+                                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                                type="text"
+                                class="form-control form-control-sm"
+                                aria-label="Read Date"
+                            />
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary btn-sm" (click)="subDate.toggle()">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="form-group mb-2">
-                        <label>Comments</label>
-                        <textarea
-                            [(ngModel)]="reader.comment"
-                            class="form-control"
-                            aria-label="Comments"
-                        ></textarea>
+                        <label>Rating</label><br/>
+                        <rating [(ngModel)]="reader.rating" [max]="10" [readonly]="false"></rating>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group mb-2">
+                        <label>Critique Notes</label>
+                        <quill-editor
+                            [style]="{height: 'calc(100vh - 520px)'}"
+                            [(ngModel)]="reader.comment">
+                        </quill-editor>
                     </div>
                 </div>
             </div>

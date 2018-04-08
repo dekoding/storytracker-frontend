@@ -90,7 +90,7 @@
                     <div class="form-group">
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                             <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-at"></i></div>
-                            <input [(ngModel)]="user.email" (keydown.enter)="$event.preventDefault()"
+                            <input type="email" [(ngModel)]="user.email" (keydown.enter)="$event.preventDefault()"
                             (keyup)="validate('email')"
                             type="text" name="email" class="form-control" id="email"
                             placeholder="you@example.com" required />

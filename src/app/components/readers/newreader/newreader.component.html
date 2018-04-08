@@ -5,28 +5,70 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="container">
-        <div class="form-group mb-2">
-            <label>Name</label>
-            <div class="input-group">
-                <input
-                    [(ngModel)]="reader.name"
-                    type="text"
-                    class="form-control"
-                    placeholder="Name"
-                    aria-label="Name"
-                />
-                <div class="input-group-append" dropdown>
-                    <button type="button" dropdownToggle class="btn btn-outline-success dropdown-toggle">
-                        <span class="caret"></span>
-                    </button>
-                    <ul *dropdownMenu class="dropdown-menu" role="menu">
-                        <li role="menuitem" *ngFor="let name of data.names">
-                            <a class="dropdown-item" (click)="reader.name = name">
-                                {{name}}
-                            </a>
-                        </li>
-                    </ul>
+    <div class="container-fluid">
+        <div class="row bg-info text-white border rounded p-2 m-1">
+            <div class="col-5">
+                <div class="form-group mb-2">
+                    <label>Name</label>
+                    <div class="input-group">
+                        <input
+                            [(ngModel)]="reader.name"
+                            type="text"
+                            class="form-control form-control-sm"
+                            placeholder="Reader"
+                            aria-label="Reader"
+                        />
+                        <div class="input-group-append">
+                            <button type="button" dropdownToggle class="btn btn-primary btn-sm dropdown-toggle">
+                                <span class="caret"></span>
+                            </button>
+                            <ul *dropdownMenu class="dropdown-menu" role="menu">
+                                <li role="menuitem" *ngFor="let name of data.names">
+                                    <a class="dropdown-item" (click)="reader.name = name">
+                                        {{name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group mb-2">
+                    <label>Read on</label>
+                    <div class="input-group">
+                        <input
+                            [(ngModel)]="reader.readDate"
+                            #subDate="bsDatepicker"
+                            bsDatepicker
+                            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                            type="text"
+                            class="form-control form-control-sm"
+                            aria-label="Read Date"
+                        />
+                        <div class="input-group-append">
+                            <button class="btn btn-primary btn-sm" (click)="subDate.toggle()">
+                                <i class="fas fa-calendar-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group mb-2">
+                    <label>Rating</label><br/>
+                    <rating [(ngModel)]="reader.rating" [max]="10" [readonly]="false"></rating>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group mb-2">
+                    <label>Critique Notes</label>
+                    <quill-editor
+                        [style]="{height: 'calc(100vh - 520px)'}"
+                        [(ngModel)]="reader.comment">
+                    </quill-editor>
                 </div>
             </div>
         </div>

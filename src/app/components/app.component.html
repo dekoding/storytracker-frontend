@@ -3,29 +3,32 @@
         <a class="navbar-brand" routerLink="/"><i class="fas fa-book"></i>&nbsp;StoryTracker</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item" *ngIf="auth.isLoggedIn">
+                    <a class="nav-link" routerLink="stories">My Stories</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-2">
                 <li class="nav-item">
                     <a class="nav-link" routerLink="about">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="docs">Documentation</a>
                 </li>
-            </ul>
-            <ul class="navbar-nav mr-2">
                 <li class="nav-item" *ngIf="auth.isLoggedIn">
-                    <a class="nav-link" routerLink="stories">My Stories</a>
+                    <a class="btn btn-primary text-white" (click)="logoutConfirm(logout)">Log Out</a>
                 </li>
                 <li class="nav-item" *ngIf="!auth.isLoggedIn">
-                    <a class="btn btn-outline-primary" routerLink="login">Sign In</a>
+                    <a class="btn btn-primary text-white" routerLink="login">Sign In</a>
                 </li>
                 <li class="nav-item ml-1" *ngIf="!auth.isLoggedIn">
-                    <a class="btn btn-outline-secondary" routerLink="signup">Create Account</a>
+                    <a class="btn btn-secondary text-white" routerLink="signup">Create Account</a>
                 </li>
             </ul>
         </div>
     </nav>
 </header>
-<div class="row mr-0">
-    <div class="col-2 pr-0" *ngIf="auth.isLoggedIn">
+<div class="row m-0 p-0">
+    <!-- <div class="col-2 pr-0" *ngIf="auth.isLoggedIn">
         <div class="sidebar position-sticky d-flex flex-column bg-info">
             <div class="card">
                 <div class="card-body">
@@ -43,13 +46,29 @@ Rejected:    {{data.stats.rejections}}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-10 pl-0 pr-0">
+    </div> -->
+    <div class="col-12 p-0">
         <router-outlet></router-outlet>
     </div>
 </div>
-<footer class="footer">
+<footer class="footer" *ngIf="!auth.isLoggedIn">
     <div class="container">
         <span class="text-muted">Copyright 2018, Damon Kaswell </span>
     </div>
 </footer>
+
+<ng-template #logout>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Logging out...</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Are you sure?
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary mr-auto" (click)="loggingOut = true; modalRef.hide()">Log Out</button>
+        <button class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+    </div>
+</ng-template>

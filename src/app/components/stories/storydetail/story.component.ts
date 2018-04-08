@@ -13,10 +13,10 @@ import { Story } from '../../../classes/story';
 export class StoryComponent implements OnInit, DoCheck {
 
     constructor(
-        private iterableDiffers: IterableDiffers,
-        private keyValueDiffers: KeyValueDiffers,
-        private shared: SharedService,
-        private data: DataService
+        public iterableDiffers: IterableDiffers,
+        public keyValueDiffers: KeyValueDiffers,
+        public shared: SharedService,
+        public data: DataService
     ) {
         this.arrayDiffer = this.iterableDiffers.find([]).create(null);
     }

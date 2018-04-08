@@ -13,8 +13,8 @@ import { Story } from '../../../classes/story';
 })
 export class NewStoryComponent implements OnInit {
     constructor(
-        private shared: SharedService,
-        private data: DataService,
+        public shared: SharedService,
+        public data: DataService,
         public bsModalRef: BsModalRef
     ) { }
 

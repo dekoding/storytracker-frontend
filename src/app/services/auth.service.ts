@@ -27,8 +27,8 @@ export interface SignupResponse {
 @Injectable()
 export class AuthService {
     constructor(
-        private http: HttpClient,
-        private shared: SharedService
+        public http: HttpClient,
+        public shared: SharedService
     ) { }
 
     isLoggedIn:boolean = false;
@@ -41,11 +41,10 @@ export class AuthService {
 
     // store the URL so we can redirect after logging in
     redirectUrl: string;
+    headers = new HttpHeaders({ 'Content-Type': 'application/json'});
 
     login(username: string, password: string):Observable<boolean> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-
-        return this.http.post(`${this.shared.config.api}/api/login`,JSON.stringify({ username, password }), { headers })
+        return this.http.post(`${this.shared.config.api}/api/login`,JSON.stringify({ username, password }), { headers: this.headers })
             .map((response: LoginResponse) => {
                 this.isLoggedIn = response.success;
                 return response.success;
@@ -53,9 +52,7 @@ export class AuthService {
     }
 
     signupTest(username: string, email: string):Observable<boolean> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-
-        return this.http.post(`${this.shared.config.api}/api/signupTest`,JSON.stringify({ username, email }), { headers })
+        return this.http.post(`${this.shared.config.api}/api/signupTest`,JSON.stringify({ username, email }), { headers: this.headers })
             .map((response: SignupTest) => {
                 this.signupValid = response.success;
                 this.signupDuplicate.username = response.username;
@@ -66,11 +63,15 @@ export class AuthService {
     }
 
     signup(user: User) {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-
-        return this.http.post(`${this.shared.config.api}/api/signup`,JSON.stringify(user), { headers })
+        return this.http.post(`${this.shared.config.api}/api/signup`,JSON.stringify(user), { headers: this.headers })
             .map((response: SignupResponse) => {
-                console.log(response.success, response.message);
+                return response.success;
+            });
+    }
+
+    logout() {
+        return this.http.get(`${this.shared.config.api}/api/logout`)
+            .map((response: LoginResponse) => {
                 return response.success;
             });
     }
