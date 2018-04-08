@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { Injectable, APP_INITIALIZER } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../classes/user';
 import { environment } from '../../environments/environment';
@@ -8,12 +8,7 @@ import { environment } from '../../environments/environment';
 export class SharedService {
     constructor(
         public http: HttpClient
-    ) {
-        this.http.get(environment.config)
-            .subscribe(response => {
-                this.config = response;
-            });
-    }
+    ) { }
 
     config:any;
 
@@ -34,11 +29,6 @@ export class SharedService {
             submissions: false,
             readers: false
         },
-        newButton: {
-            stories: false,
-            submissions: false,
-            readers: false
-        },
         searchEnabled: false,
         searchText: null,
         searchCase: false,
@@ -47,18 +37,19 @@ export class SharedService {
         newReaderAdded: false
     };
 
-    enableNewButton(type: String) {
-        Object.keys(this.state.newButton).forEach(field => {
-            this.state.newButton[field] = field === type ? true : false;
+    loadConfig() {
+        return new Promise((resolve, reject) => {
+            this.http.get(environment.config)
+                .map(response => response)
+                .subscribe(data => {
+                    this.config = data;
+                    resolve(true);
+                },
+                (error: any) => {
+                    console.error(error);
+                    return Observable.throw(error.json().error || 'Server error');
+                });
         });
-        this.state.searchEnabled = true;
-    }
-
-    disableNewButtons() {
-        Object.keys(this.state.newButton).forEach(field => {
-            this.state.newButton[field] = false;
-        });
-        this.state.searchEnabled = false;
     }
 
     reset() {
@@ -75,3 +66,22 @@ export class SharedService {
         this.state.initialized.readers = false;
     }
 }
+
+export function SharedFactory(shared: SharedService) {
+    return () => shared.loadConfig();
+}
+
+export function init() {
+    return {
+        provide: APP_INITIALIZER,
+        useFactory: SharedFactory,
+        deps: [ SharedService ],
+        multi: true
+    }
+}
+
+const SharedModule = {
+    init: init
+}
+
+export { SharedModule };
