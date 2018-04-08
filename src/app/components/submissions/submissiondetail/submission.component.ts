@@ -13,10 +13,10 @@ import { Submission } from '../../../classes/submission';
 export class SubmissionComponent implements OnInit, DoCheck {
 
     constructor(
-        private iterableDiffers: IterableDiffers,
-        private keyValueDiffers: KeyValueDiffers,
-        private shared: SharedService,
-        private data: DataService
+        public iterableDiffers: IterableDiffers,
+        public keyValueDiffers: KeyValueDiffers,
+        public shared: SharedService,
+        public data: DataService
     ) {
         this.arrayDiffer = this.iterableDiffers.find([]).create(null);
     }
@@ -31,7 +31,7 @@ export class SubmissionComponent implements OnInit, DoCheck {
     submissionSet:boolean = false;
 
     ngOnInit() {
-        if (this.data.selectedStory.submissions.length > 0) {
+        if (this.data.selectedStory.submissions) {
             this.setSubmission();
         }
     }

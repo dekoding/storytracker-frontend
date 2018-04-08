@@ -1,42 +1,34 @@
-<div class="container-fluid bg-white main-content pt-3 pb-3">
-    <div class="card bg-light">
+<div class="container-fluid bg-white main-content p-0">
+    <div class="card bg-light border-0">
         <app-storynav class="card-header navbar"></app-storynav>
         <div class="card-body record-container">
-            <div class="row">
-                <div class="col-8">
+            <div class="row bg-info text-white border rounded p-4 m-3">
+                <div class="col-4">
                     <div class="form-group mb-2">
-                        <label>Title</label>
+                        <label class="font-weight-bold">Title</label>
                         <input
                             [(ngModel)]="story.title"
                             type="text"
-                            class="form-control"
+                            class="form-control form-control-sm"
                             placeholder="Story title"
                             aria-label="Story title"
                         />
                     </div>
-                    <div class="form-group mb-2">
-                        <label>Comments</label>
-                        <textarea
-                            [(ngModel)]="story.comments"
-                            class="form-control"
-                            aria-label="Comments"
-                        ></textarea>
-                    </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="form-group mb-2">
-                        <label>Genre</label>
+                        <label class="font-weight-bold">Genre</label>
                         <div class="input-group">
                             <input
                                 [(ngModel)]="story.genre"
                                 (keyup)="data.updateDropdowns()"
                                 type="text"
-                                class="form-control"
+                                class="form-control form-control-sm"
                                 placeholder="Genre"
                                 aria-label="Genre"
                             />
                             <div class="input-group-append" dropdown>
-                                <button type="button" dropdownToggle class="btn btn-outline-info dropdown-toggle">
+                                <button type="button" dropdownToggle class="btn btn-primary btn-sm dropdown-toggle">
                                     <span class="caret"></span>
                                 </button>
                                 <ul *dropdownMenu class="dropdown-menu" role="menu">
@@ -49,28 +41,21 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-3">
                     <div class="form-group mb-2">
-                        <label>Word count</label>
-                        <input
-                            [(ngModel)]="story.words"
-                            type="text"
-                            class="form-control"
-                            aria-label="Word count"
-                        />
-                    </div>
-                    <div class="form-group mb-2">
-                        <label>Status</label>
+                        <label class="font-weight-bold">Status</label>
                         <div class="input-group">
                             <input
                                 [(ngModel)]="story.status"
                                 (keyup)="data.updateDropdowns()"
                                 type="text"
-                                class="form-control"
+                                class="form-control form-control-sm"
                                 placeholder="Status"
                                 aria-label="Status"
                             />
                             <div class="input-group-append" dropdown>
-                                <button type="button" dropdownToggle class="btn btn-outline-info dropdown-toggle">
+                                <button type="button" dropdownToggle class="btn btn-primary btn-sm dropdown-toggle">
                                     <span class="caret"></span>
                                 </button>
                                 <ul *dropdownMenu class="dropdown-menu" role="menu">
@@ -83,21 +68,43 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="story.finished" id="finished">
-                        <label class="form-check-label" for="finished">&nbsp;Finished</label>
+                </div>
+                <div class="col-2">
+                    <div class="form-group mb-2">
+                        <label class="font-weight-bold">Word count</label>
+                        <input
+                            [(ngModel)]="story.words"
+                            type="text"
+                            class="form-control form-control-sm"
+                            aria-label="Word count"
+                        />
                     </div>
                 </div>
             </div>
-            <div *ngFor="let alert of alerts" class="mt-4">
-                <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{alert.msg}}</alert>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="form-group mb-2">
+                        <label>Comments</label>
+                        <quill-editor
+                            [style]="{height: 'calc(100vh - 520px)'}"
+                            [(ngModel)]="story.comments">
+                        </quill-editor>
+                    </div>
+                    <div *ngFor="let alert of alerts">
+                        <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{alert.msg}}</alert>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card-footer navbar">
-            <button class="btn btn-outline-primary mr-auto" [disabled]="!shared.state.storyChanged" (click)="save()">
+            <button class="btn btn-outline-primary mr-2" [disabled]="!shared.state.storyChanged" (click)="save()">
                 <i class="fas fa-save"></i> Save
             </button>
-            <a class="text-success" routerLink="submissions">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="story.finished" id="finished">
+                <label class="form-check-label" for="finished">&nbsp;Mark as finished</label>
+            </div>
+            <a class="text-success ml-auto" routerLink="submissions">
                 <i class="fas fa-list"></i> Submissions
             </a>
             <a class="text-info ml-3" routerLink="readers">

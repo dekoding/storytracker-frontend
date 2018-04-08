@@ -12,9 +12,9 @@ import { DataService } from '../../../services/data.service';
 export class StorynavComponent implements OnInit {
 
     constructor(
-        private router: Router,
-        private shared: SharedService,
-        private data: DataService
+        public router: Router,
+        public shared: SharedService,
+        public data: DataService
     ) {
         router.events.subscribe( (event: Event) => {
             if (event instanceof NavigationEnd) {

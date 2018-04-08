@@ -19,8 +19,8 @@ import { GetStoriesResponse,
 @Injectable()
 export class DataService {
     constructor(
-        private http: HttpClient,
-        private shared: SharedService
+        public http: HttpClient,
+        public shared: SharedService
     ) { }
 
     headers = new HttpHeaders({ 'Content-Type': 'application/json'});
@@ -64,7 +64,7 @@ export class DataService {
                     this.storyCleanup();
                     this.updateDropdowns();
                     this.updateMarkets();
-                    this.updateReaders();
+                    this.updateNames();
                 }
                 return response.success;
             });
@@ -188,7 +188,7 @@ export class DataService {
         this.markets.sort();
     }
 
-    updateReaders() {
+    updateNames() {
         this.names = [];
         this.stories.forEach(story => {
             story.readers.forEach(reader => {
@@ -212,5 +212,29 @@ export class DataService {
                 reader.readDate = new Date(reader.readDate);
             });
         });
+    }
+
+    reset() {
+        this.stories.length = 0;
+        this.submissions.length = 0;
+        this.readers.length = 0;
+
+        this.selectedStory = new Story();
+        this.selectedSubmission = new Submission();
+        this.selectedReader = new Reader();
+
+        this.genres = [];
+        this.statuses = [];
+        this.markets = [];
+        this.names = [];
+
+        this.stats = {
+            stories: 0,
+            submissions: 0,
+            waiting: 0,
+            rewrites: 0,
+            sales: 0,
+            rejections: 0,
+        };
     }
 }

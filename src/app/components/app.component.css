@@ -1,4 +1,4 @@
-.footer {
+/* .footer {
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -10,9 +10,9 @@
 .footer > .container {
     padding-right: 15px;
     padding-left: 15px;
-}
+} */
 
-.sidebar {
+/* .sidebar {
     top: 56px;
     height: calc(100vh - 116px);
     padding: .3rem;
@@ -25,4 +25,4 @@
     bottom: 5px;
     left: 5px;
     right: 5px;
-}
+} */

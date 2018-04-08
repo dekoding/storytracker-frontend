@@ -5,6 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
+/** Third-party dependencies
+ * - Includes ngx-bootstrap and ngx-quill
+ */
+
+import { QuillModule } from 'ngx-quill';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
@@ -14,6 +19,10 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+
+/** Protected components
+ * - Includes ngx-bootstrap and ngx-quill
+ */
 
 import { StoriesComponent } from '../../components/stories/stories.component';
 import { StoryComponent } from '../../components/stories/storydetail/story.component';
@@ -53,6 +62,7 @@ const routes:Routes = [
         BrowserModule,
         HttpClientModule,
         FormsModule,
+        QuillModule,
         RouterModule.forRoot(routes),
         AccordionModule.forRoot(),
         AlertModule.forRoot(),

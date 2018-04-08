@@ -17,9 +17,9 @@ import { NewSubmissionComponent } from './newsubmission/newsubmission.component'
 })
 export class SubmissionsComponent implements OnInit {
     constructor(
-        private modalService: BsModalService,
-        private shared: SharedService,
-        private data: DataService
+        public modalService: BsModalService,
+        public shared: SharedService,
+        public data: DataService
     ) { }
 
     ngOnInit() { }

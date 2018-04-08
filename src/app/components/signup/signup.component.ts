@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
+import { SharedService } from '../../services/shared.service';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../classes/user';
 
@@ -15,16 +16,19 @@ import { User } from '../../classes/user';
 export class SignupComponent implements OnInit {
 
     constructor(
-        private router: Router,
-        private modalService: BsModalService,
-        private auth: AuthService,
-
+        public router: Router,
+        public modalService: BsModalService,
+        public shared: SharedService,
+        public auth: AuthService
     ) { }
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
     modalRef: BsModalRef;
+
+    tlds:string;
+    regexEmail = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    regexText = /^[0-9a-zA-Z]+$/;
 
     openModal(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template);
@@ -36,6 +40,8 @@ export class SignupComponent implements OnInit {
             this.router.navigate(['/stories']);
         }
     }
+
+
 
     user = {
         username: '',
@@ -81,8 +87,24 @@ export class SignupComponent implements OnInit {
                 this.invalid.password = true;
                 this.message.password = 'Passwords must match.'
             }
-        } else if (field === 'username' || field === 'email') {
-            this.signupTest();
+        } else if (field === 'email') {
+            if (this.validateEmail(this.user.email)) {
+                this.signupTest();
+            } else {
+                this.invalid.email = true;
+                this.message.email = 'You must use a valid email address.';
+            }
+        } else if (field === 'username' || field === 'first_name' || field === 'last_name') {
+            if (this.validateText(this.user[field])) {
+                this.invalid[field] = false;
+                this.message[field] = '';
+                if (field === 'username') {
+                    this.signupTest();
+                }
+            } else {
+                this.invalid[field] = true;
+                this.message[field] = 'Only alphanumeric characters are allowed.';
+            }
         } else {
             this.invalid[field] = false;
             this.message[field] = '';
@@ -90,12 +112,23 @@ export class SignupComponent implements OnInit {
         this.validityTest();
     }
 
+    validateEmail(email: string) {
+        email = email.toUpperCase();
+        return this.regexEmail.test(email);
+    }
+
+    validateText(text: string) {
+        return this.regexText.test(text);
+    }
+
     validityTest() {
+        let valid = true;
         Object.values(this.invalid).forEach(value => {
             if (value) {
-                this.userIsValid = false;
+                valid = false;
             }
         });
+        this.userIsValid = valid;
     }
 
     signupTest() {

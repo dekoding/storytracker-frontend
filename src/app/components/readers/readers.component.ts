@@ -17,9 +17,9 @@ import { NewReaderComponent } from './newreader/newreader.component';
 })
 export class ReadersComponent implements OnInit {
     constructor(
-        private modalService: BsModalService,
-        private shared: SharedService,
-        private data: DataService
+        public modalService: BsModalService,
+        public shared: SharedService,
+        public data: DataService
     ) { }
 
     ngOnInit() {

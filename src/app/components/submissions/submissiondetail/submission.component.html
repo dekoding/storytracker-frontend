@@ -1,27 +1,21 @@
-<div class="container-fluid bg-white main-content pt-3 pb-3">
-    <div class="card bg-light">
+<div class="container-fluid bg-white main-content p-0">
+    <div class="card bg-light border-0">
         <app-storynav class="card-header navbar"></app-storynav>
         <div class="card-body record-container">
-            <h5 class="card-title">
-                Submission Details
-            </h5>
-            <div class="row">
-                <div class="col-8">
+            <div class="row bg-info text-white border rounded p-4 m-3">
+                <div class="col-5">
                     <div class="form-group mb-2">
                         <label>Market</label>
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">{{submission.subId}}.</span>
-                            </div>
                             <input
                                 [(ngModel)]="submission.market"
                                 type="text"
-                                class="form-control"
+                                class="form-control form-control-sm"
                                 placeholder="Market"
                                 aria-label="Market"
                             />
                             <div class="input-group-append" dropdown>
-                                <button type="button" dropdownToggle class="btn btn-outline-success dropdown-toggle">
+                                <button type="button" dropdownToggle class="btn btn-primary btn-sm dropdown-toggle">
                                     <span class="caret"></span>
                                 </button>
                                 <ul *dropdownMenu class="dropdown-menu" role="menu">
@@ -34,81 +28,80 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group mb-2">
-                                <label>Submission Date</label>
-                                <div class="input-group">
-                                    <input
-                                        [(ngModel)]="submission.subDate"
-                                        #subDate="bsDatepicker"
-                                        bsDatepicker
-                                        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
-                                        type="text"
-                                        class="form-control form-control-sm"
-                                        aria-label="Submission Date"
-                                    />
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" (click)="subDate.toggle()">
-                                            <i class="fas fa-calendar-alt"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group mb-2">
-                                <label>Reply Date</label>
-                                <div class="input-group">
-                                    <input
-                                        [(ngModel)]="submission.replyDate"
-                                        #replyDate="bsDatepicker"
-                                        bsDatepicker
-                                        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
-                                        type="text"
-                                        class="form-control form-control-sm"
-                                        aria-label="Reply Date"
-                                    />
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" (click)="replyDate.toggle()">
-                                            <i class="fas fa-calendar-alt"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group mb-2">
-                                <label>Response</label>
-                                <div class="input-group">
-                                    <input *ngIf="submission.replyDate === null || submission.replyDate === undefined"
-                                        type="text"
-                                        class="form-control-plaintext"
-                                        value="Waiting"
-                                        readonly
-                                    />
-                                    <select *ngIf="submission.replyDate !== null && submission.replyDate !== undefined"
-                                        [(ngModel)]="submission.response"
-                                        class="form-control"
-                                        aria-label="Response"
-                                    >
-                                        <option value="Sold">Sold</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Rewrite">Rewrite</option>
-                                    </select>
-                                </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group mb-2">
+                        <label>Submission Date</label>
+                        <div class="input-group">
+                            <input
+                                [(ngModel)]="submission.subDate"
+                                #subDate="bsDatepicker"
+                                bsDatepicker
+                                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                                type="text"
+                                class="form-control form-control-sm"
+                                aria-label="Submission Date"
+                            />
+                            <div class="input-group-append">
+                                <button class="btn btn-primary btn-sm" (click)="subDate.toggle()">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-2">
+                    <div class="form-group mb-2">
+                        <label>Reply Date</label>
+                        <div class="input-group">
+                            <input
+                                [(ngModel)]="submission.replyDate"
+                                #replyDate="bsDatepicker"
+                                bsDatepicker
+                                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                                type="text"
+                                class="form-control form-control-sm"
+                                aria-label="Reply Date"
+                            />
+                            <div class="input-group-append">
+                                <button class="btn btn-primary btn-sm" (click)="replyDate.toggle()">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group mb-2">
+                        <label>Response</label>
+                        <div class="input-group">
+                            <input *ngIf="submission.replyDate === null || submission.replyDate === undefined"
+                                type="text"
+                                class="form-control-plaintext form-control-sm"
+                                value="Waiting"
+                                readonly
+                            />
+                            <select *ngIf="submission.replyDate !== null && submission.replyDate !== undefined"
+                                [(ngModel)]="submission.response"
+                                class="form-control form-control-sm"
+                                aria-label="Response"
+                            >
+                                <option value="Sold">Sold</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Rewrite">Rewrite</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
                     <div class="form-group mb-2">
                         <label>Comments</label>
-                        <textarea
-                            [(ngModel)]="submission.comment"
-                            class="form-control"
-                            aria-label="Comments"
-                        ></textarea>
+                        <quill-editor
+                            [style]="{height: 'calc(100vh - 520px)'}"
+                            [(ngModel)]="submission.comment">
+                        </quill-editor>
                     </div>
                 </div>
             </div>

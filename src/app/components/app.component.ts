@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, TemplateRef, OnInit } from '@angular/core';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
@@ -9,6 +9,9 @@ import { Story } from '../classes/story';
 import { Submission } from '../classes/submission';
 import { Reader } from '../classes/reader';
 
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -16,10 +19,11 @@ import { Reader } from '../classes/reader';
 })
 export class AppComponent implements OnInit {
     constructor(
-        private router: Router,
-        private auth: AuthService,
-        private shared: SharedService,
-        private data: DataService
+        public router: Router,
+        public auth: AuthService,
+        public shared: SharedService,
+        public data: DataService,
+        public modalService: BsModalService
     ) {
         router.events.subscribe( (event: Event) => {
             if (event instanceof NavigationEnd) {
@@ -36,6 +40,9 @@ export class AppComponent implements OnInit {
             }
         });
     }
+
+    modalRef: BsModalRef;
+    loggingOut:boolean = false;
 
     initializeApp() {
         let count = this.routeParts.length;
@@ -149,5 +156,23 @@ export class AppComponent implements OnInit {
         });
         this.data.stats = { stories, submissions, waiting, rewrites, sales, rejections };
         this.shared.state.initialized.stories = true;
+    }
+
+    logoutConfirm(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template);
+        this.modalService.onHidden.subscribe(hiding => {
+            if (this.loggingOut) {
+                this.auth.logout()
+                    .subscribe(result => {
+                        if (result) {
+                            this.auth.isLoggedIn = false;
+                            this.shared.reset();
+                            this.data.reset();
+                            this.loggingOut = false;
+                            this.router.navigate(['/home']);
+                        }
+                    });
+            }
+        });
     }
 }

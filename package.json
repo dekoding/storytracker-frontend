@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "deploy:dev": "ng build && cp -R dist/* ../storytracker-api/static/",
-    "deploy:prod": "ng build --env=prod && cp -R dist/* ../storytracker-api/static/"
+    "deploy:prod": "ng build --prod --env=prod && cp -R dist/* ../storytracker-api/static/"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +27,7 @@
     "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
     "ngx-bootstrap": "^2.0.3",
+    "ngx-quill": "^2.2.0",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
